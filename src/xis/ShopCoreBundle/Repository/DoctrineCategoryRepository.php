@@ -1,16 +1,34 @@
 <?php
 namespace xis\ShopCoreBundle\Repository;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use xis\ShopCoreBundle\Entity\Category;
 
-class DoctrineCategoryRepository extends EntityRepository implements CategoryRepository
+class DoctrineCategoryRepository implements CategoryRepository
 {
+    /** @var EntityManager */
+    private $entityManager;
+
+    /**
+     * @param EntityManager $entityManager
+     */
+    function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @return Category[]
      */
     function getMainCategories()
     {
-        return $this->findBy(array('level' => 1), array('sortOrder' => 'asc'));
+        $queryBuilder = $this->entityManager->createQueryBuilder()
+            ->select('c')
+            ->from('xisShopCoreBundle:Category', 'c')
+            ->where('c.level=1')
+            ->addOrderBy('c.sortOrder','asc');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

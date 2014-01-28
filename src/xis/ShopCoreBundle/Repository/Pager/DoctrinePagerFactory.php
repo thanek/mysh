@@ -8,6 +8,6 @@ class DoctrinePagerFactory implements PagerFactory {
      */
     function getPager($queryBuilder)
     {
-        // TODO: Implement getPager() method.
+        return new PagerfantaDoctrinePager($queryBuilder);
     }
 }

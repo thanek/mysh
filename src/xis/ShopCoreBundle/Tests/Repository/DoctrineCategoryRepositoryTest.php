@@ -1,28 +1,38 @@
 <?php
 namespace xis\ShopCoreBundle\Tests\Repository;
 
+use Prophecy\PhpUnit\ProphecyTestCase;
 use xis\ShopCoreBundle\Entity\Category;
 use xis\ShopCoreBundle\Repository\DoctrineCategoryRepository;
 
-class DoctrineCategoryRepositoryTest extends AbstractRepositoryTestCase
+class DoctrineCategoryRepositoryTest extends ProphecyTestCase
 {
     /**
      * @test
      */
-    public function getMainCategoriesShouldInvokePersister()
+    public function getMainCategoriesShouldGetResultsUsingQueryBuilder()
     {
         $mainCategories = array(
             new Category(),
             new Category()
         );
 
-        $this->persister->loadAll(array('level' => 1), array('sortOrder' => 'asc'), null, null)
-            ->willReturn($mainCategories);
+        $query = $this->prophesize('Doctrine\ORM\AbstractQuery');
+        $query->getResult()->willReturn($mainCategories);
 
-        $categoryRepository = new DoctrineCategoryRepository($this->em->reveal(), $this->metaData->reveal());
+        $queryBuilder = $this->prophesize('Doctrine\ORM\QueryBuilder');
+        $queryBuilder->select('c')->willReturn($queryBuilder);
+        $queryBuilder->from('xisShopCoreBundle:Category', 'c')->willReturn($queryBuilder);
+        $queryBuilder->where('c.level=1')->willReturn($queryBuilder);
+        $queryBuilder->addOrderBy('c.sortOrder','asc')->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->willReturn($query);
+
+        $entityManager = $this->prophesize('Doctrine\ORM\EntityManager');
+        $entityManager->createQueryBuilder()->willReturn($queryBuilder);
+
+        $categoryRepository = new DoctrineCategoryRepository($entityManager->reveal());
         $actualCategories = $categoryRepository->getMainCategories();
 
         $this->assertEquals($mainCategories, $actualCategories);
-
     }
 } 
