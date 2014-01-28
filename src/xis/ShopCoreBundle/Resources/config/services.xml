@@ -21,7 +21,9 @@
             <argument type="service" id="xis.shop.repository.product"/>
         </service>
 
-        <service id="xis.shop.controller.category" class="xis\ShopCoreBundle\Controller\CategoryController"/>
+        <service id="xis.shop.controller.category" class="xis\ShopCoreBundle\Controller\CategoryController">
+            <argument type="service" id="xis.shop.repository.category"/>
+        </service>
 
         <service id="xis.shop.twig.extension.pager" class="xis\ShopCoreBundle\Twig\PagerExtension">
             <argument type="service" id="templating.helper.router"/>
@@ -29,22 +31,4 @@
         </service>
     </services>
 
-    <!--
-    <service id="acme_demo.repository.department" class="Acme\DoctrineModelBridge\Repository\DepartmentRepository"
-             factory-service="doctrine" factory-method="getRepository">
-        <argument>AcmeDemo:Department</argument>
-    </service>-->
-    <!--
-    <parameters>
-        <parameter key="xis_shop_core.example.class">xis\ShopCoreBundle\Example</parameter>
-    </parameters>
-
-    <services>
-        <service id="xis_shop_core.example" class="%xis_shop_core.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
-    </services>
-    -->
 </container>

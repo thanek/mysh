@@ -1,21 +1,32 @@
 <?php
-
 namespace xis\ShopCoreBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use xis\ShopCoreBundle\Repository\CategoryRepository;
 
-class CategoryController extends Controller
+/**
+ * @Route(service="xis.shop.controller.category")
+ */
+class CategoryController
 {
+    /** @var CategoryRepository */
+    private $categoryRepository;
+
+    /**
+     * @param CategoryRepository $categoryRepository
+     */
+    function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     /**
      * @Template()
      */
     public function mainCategoriesAction()
     {
-        /** @var CategoryRepository $catRepo */
-        $catRepo = $this->getDoctrine()->getRepository('xisShopCoreBundle:Category');
-        $categories = $catRepo->getMainCategories();
+        $categories = $this->categoryRepository->getMainCategories();
 
         return array('categories' => $categories);
     }

@@ -1,5 +1,4 @@
 <?php
-
 namespace xis\ShopCoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
