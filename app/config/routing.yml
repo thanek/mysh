@@ -2,4 +2,3 @@ xis_shop_core:
     resource: "@xisShopCoreBundle/Controller/"
     type:     annotation
     prefix:   /
-

@@ -4,8 +4,14 @@
 
 {% block body %}
     <h1>Welcome to the Product:all page</h1>
-    {% for product in products %}
-        <li>{{ product.name }}</li>
-    {% endfor %}
+    <ul>
+        {% for product in pager.results %}
+            <li class="single_product">
+                {{ include('xisShopCoreBundle:Product:single_listing.html.twig',{'product': product}) }}
+            </li>
+        {% endfor %}
+
+    </ul>
+    {{ pager(pager) }}
 {% endblock %}
 

@@ -14,6 +14,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $paginator  = $this->get('knp_paginator');
+        echo get_class($paginator);exit;
         $name = 'foo';
         return array('name' => $name);
     }

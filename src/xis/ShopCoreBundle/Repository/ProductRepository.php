@@ -1,7 +1,7 @@
 <?php
 namespace xis\ShopCoreBundle\Repository;
 
-use xis\ShopCoreBundle\Entity\Product;
+use xis\ShopCoreBundle\Repository\Pager\Pager;
 
 interface ProductRepository
 {
@@ -9,7 +9,7 @@ interface ProductRepository
      * @param int $limit
      * @param int $offset
      *
-     * @return Product[]
+     * @return Pager
      */
     function getProducts($limit, $offset = 0);
-} 
+}
