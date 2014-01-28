@@ -22,7 +22,7 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
         $entityManager->createQueryBuilder()->willReturn($queryBuilder);
 
         $pageNum = 20;
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\PagerfantaDoctrinePager');
+        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\PagerfantaPager');
         $pager->getCount()->willReturn(100);
         $pager->setCurrentPage($pageNum)->willReturn($pager);
         $pager->getCurrentPage()->willReturn($pageNum);

@@ -5,9 +5,9 @@ use Pagerfanta\Pagerfanta;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use xis\ShopCoreBundle\Repository\Pager\Pager;
-use xis\ShopCoreBundle\Repository\Pager\PagerfantaDoctrinePager;
+use xis\ShopCoreBundle\Repository\Pager\PagerfantaPager;
 
-class PagerfantaDoctrinePagerTest extends ProphecyTestCase
+class PagerfantaPagerTest extends ProphecyTestCase
 {
     /** @var  Pagerfanta|ObjectProphecy */
     private $pagerFanta;
@@ -19,7 +19,7 @@ class PagerfantaDoctrinePagerTest extends ProphecyTestCase
         parent::setup();
 
         $this->pagerFanta = $this->prophesize('Pagerfanta\Pagerfanta');
-        $this->pager = new PagerfantaDoctrinePager($this->pagerFanta->reveal());
+        $this->pager = new PagerfantaPager($this->pagerFanta->reveal());
     }
 
     /**

@@ -1,11 +1,9 @@
 <?php
 namespace xis\ShopCoreBundle\Repository\Pager;
 
-use Doctrine\ORM\QueryBuilder;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 
-class PagerfantaDoctrinePager implements Pager
+class PagerfantaPager implements Pager
 {
     /** @var Pagerfanta */
     private $pager;

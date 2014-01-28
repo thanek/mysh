@@ -14,6 +14,6 @@ class DoctrinePagerFactory implements PagerFactory
     {
         $adapter = new DoctrineORMAdapter($queryBuilder);
         $pagerFanta = new Pagerfanta($adapter);
-        return new PagerfantaDoctrinePager($pagerFanta);
+        return new PagerfantaPager($pagerFanta);
     }
 }

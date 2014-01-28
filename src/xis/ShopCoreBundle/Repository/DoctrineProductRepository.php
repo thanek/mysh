@@ -5,7 +5,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use xis\ShopCoreBundle\Repository\Pager\Pager;
 use xis\ShopCoreBundle\Repository\Pager\PagerFactory;
-use xis\ShopCoreBundle\Repository\Pager\PagerfantaDoctrinePager;
+use xis\ShopCoreBundle\Repository\Pager\PagerfantaPager;
 
 class DoctrineProductRepository implements ProductRepository
 {
