@@ -2,7 +2,6 @@
 namespace xis\ShopCoreBundle\Repository;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use xis\ShopCoreBundle\Entity\Category;
 
 class DoctrineCategoryRepository implements CategoryRepository

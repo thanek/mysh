@@ -7,9 +7,9 @@ interface ProductRepository
 {
     /**
      * @param int $limit
-     * @param int $offset
+     * @param int $page
      *
      * @return Pager
      */
-    function getProducts($limit, $offset = 0);
+    function getProducts($limit, $page = 0);
 }

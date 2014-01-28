@@ -22,15 +22,15 @@ class DoctrineProductRepository implements ProductRepository
 
     /**
      * @param int $limit
-     * @param int $offset
+     * @param int $page
      *
      * @return Pager
      */
-    function getProducts($limit, $offset = 0)
+    function getProducts($limit, $page = 0)
     {
         $queryBuilder = $this->getAllProductsQueryBuilder();
         $pager = $this->pagerFactory->getPager($queryBuilder);
-        $pager->setCurrentPage($offset)->setLimit($limit);
+        $pager->setCurrentPage($page)->setLimit($limit);
         return $pager;
     }
 
