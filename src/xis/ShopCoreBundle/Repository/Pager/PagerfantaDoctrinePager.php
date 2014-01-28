@@ -10,10 +10,9 @@ class PagerfantaDoctrinePager implements Pager
     /** @var Pagerfanta */
     private $pager;
 
-    public function __construct(QueryBuilder $queryBuilder)
+    public function __construct(Pagerfanta $pagerfanta)
     {
-        $adapter = new DoctrineORMAdapter($queryBuilder);
-        $this->pager = new Pagerfanta($adapter);
+        $this->pager = $pagerfanta;
     }
 
     /**

@@ -1,13 +1,19 @@
 <?php
 namespace xis\ShopCoreBundle\Repository\Pager;
 
-class DoctrinePagerFactory implements PagerFactory {
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
+
+class DoctrinePagerFactory implements PagerFactory
+{
     /**
      * @param $queryBuilder
      * @return Pager
      */
     function getPager($queryBuilder)
     {
-        return new PagerfantaDoctrinePager($queryBuilder);
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+        $pagerFanta = new Pagerfanta($adapter);
+        return new PagerfantaDoctrinePager($pagerFanta);
     }
 }
