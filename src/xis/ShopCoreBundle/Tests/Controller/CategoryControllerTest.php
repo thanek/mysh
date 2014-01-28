@@ -9,7 +9,7 @@ use xis\ShopCoreBundle\Controller\CategoryController;
 use xis\ShopCoreBundle\Entity\Category;
 use xis\ShopCoreBundle\Repository\DoctrineCategoryRepository;
 
-class CategoryControllerTest extends ProphecyTestCase
+class CategoryControllerTest extends AbstractControllerTestCase
 {
     /**
      * @test
@@ -21,19 +21,13 @@ class CategoryControllerTest extends ProphecyTestCase
             new Category()
         );
 
-        /** @var DoctrineCategoryRepository | ObjectProphecy $categoryRepo */
-        $categoryRepo = $this->prophesize('xis\ShopCoreBundle\Repository\DoctrineCategoryRepository');
+        $categoryRepo = $this->getRepoMock(
+            'xis\ShopCoreBundle\Repository\DoctrineCategoryRepository',
+            'xisShopCoreBundle:Category');
         $categoryRepo->getMainCategories()->willReturn($categories);
-        /** @var Registry | ObjectProphecy $doctrine */
-        $doctrine = $this->prophesize('Doctrine\Bundle\DoctrineBundle\Registry');
-        $doctrine->getRepository('xisShopCoreBundle:Category')->willReturn($categoryRepo);
-        /** @var Container | ObjectProphecy $container */
-        $container = $this->prophesize('Symfony\Component\DependencyInjection\Container');
-        $container->has('doctrine')->willReturn(1);
-        $container->get('doctrine')->willReturn($doctrine);
 
         $controller = new CategoryController();
-        $controller->setContainer($container->reveal());
+        $controller->setContainer($this->container->reveal());
         $output = $controller->mainCategoriesAction();
 
         $this->assertEquals(array('categories' => $categories), $output);

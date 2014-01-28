@@ -1,15 +1,14 @@
 <?php
 namespace xis\ShopCoreBundle\Tests\Controller;
 
-use Prophecy\PhpUnit\ProphecyTestCase;
 use xis\ShopCoreBundle\Controller\DefaultController;
 
-class DefaultControllerTest extends ProphecyTestCase
+class DefaultControllerTest extends AbstractControllerTestCase
 {
     public function testIndexAction()
     {
         $c = new DefaultController();
-        $ret = $c->indexAction();
-        $this->assertEquals(array('name' => 'foo'), $ret);
+        $output = $c->indexAction();
+        $this->assertEquals(array('name' => 'foo'), $output);
     }
 } 
