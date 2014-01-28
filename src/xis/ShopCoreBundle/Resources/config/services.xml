@@ -3,32 +3,10 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <services>
-        <service id="xis.shop.pager.factory" class="xis\ShopCoreBundle\Repository\Pager\DoctrinePagerFactory"/>
-
-        <service id="xis.shop.repository.product" class="xis\ShopCoreBundle\Repository\DoctrineProductRepository">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="xis.shop.pager.factory"/>
-        </service>
-
-        <service id="xis.shop.repository.category" class="xis\ShopCoreBundle\Repository\DoctrineCategoryRepository">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-        </service>
-
-        <service id="xis.shop.controller.product" class="xis\ShopCoreBundle\Controller\ProductController"
-                 scope="request">
-            <argument type="service" id="request"/>
-            <argument type="service" id="xis.shop.repository.product"/>
-        </service>
-
-        <service id="xis.shop.controller.category" class="xis\ShopCoreBundle\Controller\CategoryController">
-            <argument type="service" id="xis.shop.repository.category"/>
-        </service>
-
-        <service id="xis.shop.twig.extension.pager" class="xis\ShopCoreBundle\Twig\PagerExtension">
-            <argument type="service" id="templating.helper.router"/>
-            <tag name="twig.extension"/>
-        </service>
-    </services>
+    <imports>
+        <import resource="controllers.xml"/>
+        <import resource="repositories.xml"/>
+        <import resource="pager.xml"/>
+    </imports>
 
 </container>

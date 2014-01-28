@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="xis.shop.pager.factory" class="xis\ShopCoreBundle\Repository\Pager\DoctrinePagerFactory"/>
+
+        <service id="xis.shop.twig.extension.pager" class="xis\ShopCoreBundle\Twig\PagerExtension">
+            <argument type="service" id="templating.helper.router"/>
+            <tag name="twig.extension"/>
+        </service>
+    </services>
+
+</container>
