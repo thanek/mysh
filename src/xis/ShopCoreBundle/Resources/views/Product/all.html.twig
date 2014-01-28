@@ -1,0 +1,11 @@
+{% extends "xisShopCoreBundle::layout.html.twig" %}
+
+{% block title %}xisShopCoreBundle:Product:all{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Product:all page</h1>
+    {% for product in products %}
+        <li>{{ product.name }}</li>
+    {% endfor %}
+{% endblock %}
+

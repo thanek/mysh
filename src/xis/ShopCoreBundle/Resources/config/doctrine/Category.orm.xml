@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity table="categories"
+            repository-class="xis\ShopCoreBundle\Repository\DoctrineCategoryRepository"
+            name="xis\ShopCoreBundle\Entity\Category">
+        <id name="id" type="integer" column="categories_id">
+            <generator strategy="AUTO"/>
+        </id>
+        <field name="name" type="string" column="name" length="255"/>
+        <field name="slug" type="string" column="name_slug" length="255"/>
+        <field name="sortOrder" type="integer" column="sort_order"/>
+        <field name="dateAdded" type="datetime" column="date_added"/>
+        <field name="lastModified" type="datetime" column="last_modified"/>
+        <field name="status" type="boolean" column="categories_status"/>
+        <field name="lft" type="integer" column="cat_lft"/>
+        <field name="rgt" type="integer" column="cat_rgt"/>
+        <field name="level" type="integer" column="cat_lvl"/>
+    </entity>
+</doctrine-mapping>

@@ -1,0 +1,108 @@
+* {
+    font: 13px "Open Sans", "Helvetica", "Arial", sans-serif;
+}
+
+h1, ul, li {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    margin: 0px auto;
+}
+
+body {
+    background: #eeeeee;
+    min-width: 1020px;
+}
+
+/** HEADER **/
+#header {
+    background: #ffffff;
+}
+
+#header #toolbar {
+    background: #333333;
+    color: #ffffff;
+    padding: 6px;
+}
+
+#header #toolbar .container {
+    width: 940px;
+}
+
+#header .container {
+    width: 980px;
+}
+
+#header .container #logo {
+    font-size: 36px;
+}
+
+#navigation {
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+    background: #ffffff;
+}
+
+#navigation .container {
+    border-right: 1px solid #eeeeee;
+    border-left: 1px solid #eeeeee;
+    width: 980px;
+}
+#navigation .container ul {
+    overflow: auto;
+}
+#navigation .container li {
+    float: left;
+    display: block;
+    border-right: 1px solid #eeeeee;
+}
+#navigation .container ul:last-child {
+    border-right: none;
+}
+#navigation .container li a {
+    color: #444444;
+    text-transform: uppercase;
+    min-width: 140px;
+    display: block;
+    padding: 14px;
+}
+#navigation .container li a:hover {
+    background: #eeeeee;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/** /HEADER **/
+
+#main-content {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #eeeeee;
+}
+
+#main-content .container {
+    background: #ffffff;
+    width: 980px;
+}
+
+#footer {
+    bottom: 20px;
+    background: #333333;
+    min-height: 30px;
+    color: #ffffff;
+}
+
+#footer .container {
+    width: 980px;
+}

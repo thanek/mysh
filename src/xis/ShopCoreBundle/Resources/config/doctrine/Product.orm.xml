@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity table="products"
+          repository-class="xis\ShopCoreBundle\Repository\DoctrineProductRepository"
+          name="xis\ShopCoreBundle\Entity\Product">
+    <id name="id" type="integer" column="products_id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="name" type="string" column="name" length="255"/>
+    <field name="nameSlug" type="string" column="name_slug" length="255"/>
+    <field name="quantity" type="integer" column="products_quantity"/>
+    <field name="image" type="string" column="products_image" length="255"/>
+    <field name="price" type="float" column="products_price"/>
+    <field name="dateAdded" type="datetime" column="products_date_added"/>
+    <field name="lastModified" type="datetime" column="products_last_modified"/>
+    <field name="status" type="boolean" column="products_status"/>
+    <field name="isPromo" type="boolean" column="is_promo"/>
+    <field name="isAlwaysAvailable" type="boolean" column="is_always_available"/>
+    <field name="signature" type="string" column="signature" length="12"/>
+  </entity>
+</doctrine-mapping>
