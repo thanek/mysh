@@ -58,7 +58,14 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        #auto_mapping: true
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    xisShopCoreBundle:
+                        prefix: xis\ShopCoreBundle\Domain\Entity
 
 # Swiftmailer Configuration
 swiftmailer:
