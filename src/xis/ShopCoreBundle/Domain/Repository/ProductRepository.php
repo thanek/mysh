@@ -1,7 +1,7 @@
 <?php
-namespace xis\ShopCoreBundle\Repository;
+namespace xis\ShopCoreBundle\Domain\Repository;
 
-use xis\ShopCoreBundle\Repository\Pager\Pager;
+use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
 
 interface ProductRepository
 {

@@ -1,11 +1,11 @@
 <?php
-namespace xis\ShopCoreBundle\Repository;
+namespace xis\ShopCoreBundle\Domain\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use xis\ShopCoreBundle\Repository\Pager\Pager;
-use xis\ShopCoreBundle\Repository\Pager\PagerFactory;
-use xis\ShopCoreBundle\Repository\Pager\PagerfantaPager;
+use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
+use xis\ShopCoreBundle\Domain\Repository\Pager\PagerFactory;
+use xis\ShopCoreBundle\Domain\Repository\Pager\PagerfantaPager;
 
 class DoctrineProductRepository implements ProductRepository
 {

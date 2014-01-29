@@ -1,7 +1,7 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Entity;
+namespace xis\ShopCoreBundle\Tests\Domain\Entity;
 
-use xis\ShopCoreBundle\Entity\Category;
+use xis\ShopCoreBundle\Domain\Entity\Category;
 
 class CategoryTest extends AbstractEntityTestCase
 {

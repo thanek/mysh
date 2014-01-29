@@ -4,7 +4,7 @@ namespace xis\ShopCoreBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use xis\ShopCoreBundle\Repository\ProductRepository;
+use xis\ShopCoreBundle\Domain\Repository\ProductRepository;
 
 /**
  * @Route(service="xis.shop.controller.product")

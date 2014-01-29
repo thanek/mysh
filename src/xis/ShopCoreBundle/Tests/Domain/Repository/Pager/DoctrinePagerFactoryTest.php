@@ -1,8 +1,8 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Repository\Pager;
+namespace xis\ShopCoreBundle\Tests\Domain\Repository\Pager;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
-use xis\ShopCoreBundle\Repository\Pager\DoctrinePagerFactory;
+use xis\ShopCoreBundle\Domain\Repository\Pager\DoctrinePagerFactory;
 
 class DoctrinePagerFactoryTest extends ProphecyTestCase
 {
@@ -17,7 +17,7 @@ class DoctrinePagerFactoryTest extends ProphecyTestCase
         $pager = $factory->getPager($queryBuilder->reveal());
 
         $this->assertEquals(
-            'xis\ShopCoreBundle\Repository\Pager\PagerfantaPager', get_class($pager)
+            'xis\ShopCoreBundle\Domain\Repository\Pager\PagerfantaPager', get_class($pager)
         );
     }
 } 

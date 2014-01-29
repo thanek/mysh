@@ -3,7 +3,7 @@ namespace xis\ShopCoreBundle\Tests\Controller;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
 use xis\ShopCoreBundle\Controller\CategoryController;
-use xis\ShopCoreBundle\Entity\Category;
+use xis\ShopCoreBundle\Domain\Entity\Category;
 
 class CategoryControllerTest extends ProphecyTestCase
 {
@@ -17,7 +17,7 @@ class CategoryControllerTest extends ProphecyTestCase
             new Category()
         );
 
-        $categoryRepo = $this->prophesize('xis\ShopCoreBundle\Repository\DoctrineCategoryRepository');
+        $categoryRepo = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\DoctrineCategoryRepository');
         $categoryRepo->getMainCategories()->willReturn($categories);
 
         $controller = new CategoryController($categoryRepo->reveal());

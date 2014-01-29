@@ -1,9 +1,9 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Repository;
+namespace xis\ShopCoreBundle\Domain\Tests\Repository;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
-use xis\ShopCoreBundle\Entity\Category;
-use xis\ShopCoreBundle\Repository\DoctrineCategoryRepository;
+use xis\ShopCoreBundle\Domain\Entity\Category;
+use xis\ShopCoreBundle\Domain\Repository\DoctrineCategoryRepository;
 
 class DoctrineCategoryRepositoryTest extends ProphecyTestCase
 {

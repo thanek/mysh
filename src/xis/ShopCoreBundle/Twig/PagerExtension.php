@@ -2,7 +2,7 @@
 namespace xis\ShopCoreBundle\Twig;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
-use xis\ShopCoreBundle\Repository\Pager\Pager;
+use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
 
 class PagerExtension extends \Twig_Extension
 {

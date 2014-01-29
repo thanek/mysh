@@ -1,11 +1,11 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Repository\Pager;
+namespace xis\ShopCoreBundle\Tests\Domain\Repository\Pager;
 
 use Pagerfanta\Pagerfanta;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use xis\ShopCoreBundle\Repository\Pager\Pager;
-use xis\ShopCoreBundle\Repository\Pager\PagerfantaPager;
+use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
+use xis\ShopCoreBundle\Domain\Repository\Pager\PagerfantaPager;
 
 class PagerfantaPagerTest extends ProphecyTestCase
 {

@@ -5,6 +5,7 @@ use Prophecy\Argument\Token\AnyValuesToken;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
+use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
 use xis\ShopCoreBundle\Twig\PagerExtension;
 
 class PagerExtensionTest extends ProphecyTestCase
@@ -47,10 +48,7 @@ class PagerExtensionTest extends ProphecyTestCase
      */
     public function getPagerShouldReturnShortPager()
     {
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(1);
-        $pager->getPageCount()->willReturn(1);
-        $pager->getCurrentPage()->willReturn(1);
+        $pager = $this->getPagerMock(1, 1, 1);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
         $pagerTxt = $this->stripTags($pagerHtml);
@@ -65,10 +63,7 @@ class PagerExtensionTest extends ProphecyTestCase
     {
         $this->router->generate('all', new AnyValuesToken())->willReturn('someUrl');
 
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(100);
-        $pager->getPageCount()->willReturn(2);
-        $pager->getCurrentPage()->willReturn(1);
+        $pager = $this->getPagerMock(100, 2, 1);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
 
@@ -86,10 +81,7 @@ class PagerExtensionTest extends ProphecyTestCase
         $this->router->generate('products_all', array('page' => 1))->willReturn('http://some.pla.ce/all?page=1');
         $this->router->generate('products_all', array('page' => 3))->willReturn('http://some.pla.ce/all?page=3');
 
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(100);
-        $pager->getPageCount()->willReturn(3);
-        $pager->getCurrentPage()->willReturn(2);
+        $pager = $this->getPagerMock(100, 3, 2);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'products_all');
         $ret = preg_match_all('|href="(\S+)"|', $pagerHtml, $m);
@@ -108,10 +100,7 @@ class PagerExtensionTest extends ProphecyTestCase
         $this->router->generate('home', array('strona' => 1))->willReturn('http://some.pla.ce/all?strona=1');
         $this->router->generate('home', array('strona' => 3))->willReturn('http://some.pla.ce/all?strona=3');
 
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(100);
-        $pager->getPageCount()->willReturn(3);
-        $pager->getCurrentPage()->willReturn(2);
+        $pager = $this->getPagerMock(100, 3, 2);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'home', 'strona');
         $ret = preg_match_all('|href="(\S+)"|', $pagerHtml, $m);
@@ -127,10 +116,7 @@ class PagerExtensionTest extends ProphecyTestCase
      */
     public function getPagerShouldReturnLongPager()
     {
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(100);
-        $pager->getPageCount()->willReturn(10);
-        $pager->getCurrentPage()->willReturn(1);
+        $pager = $this->getPagerMock(100, 10, 1);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
         $pagerTxt = $this->stripTags($pagerHtml);
@@ -143,10 +129,7 @@ class PagerExtensionTest extends ProphecyTestCase
      */
     public function getPagerShouldReturnLongPagerWithFifthElementSelected()
     {
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(100);
-        $pager->getPageCount()->willReturn(10);
-        $pager->getCurrentPage()->willReturn(5);
+        $pager = $this->getPagerMock(100, 10, 5);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
         $pagerTxt = $this->stripTags($pagerHtml);
@@ -159,10 +142,7 @@ class PagerExtensionTest extends ProphecyTestCase
      */
     public function getPagerShouldShowDotsOnTheLeftForBigPageNumber()
     {
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(100);
-        $pager->getPageCount()->willReturn(10);
-        $pager->getCurrentPage()->willReturn(8);
+        $pager = $this->getPagerMock(100, 10, 8);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
         $pagerTxt = $this->stripTags($pagerHtml);
@@ -175,10 +155,7 @@ class PagerExtensionTest extends ProphecyTestCase
      */
     public function getPagerShouldShowNoDotsForAveragePager()
     {
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\Pager');
-        $pager->getCount()->willReturn(100);
-        $pager->getPageCount()->willReturn(5);
-        $pager->getCurrentPage()->willReturn(3);
+        $pager = $this->getPagerMock(100, 5, 3);
 
         $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
         $pagerTxt = $this->stripTags($pagerHtml);
@@ -187,7 +164,7 @@ class PagerExtensionTest extends ProphecyTestCase
     }
 
     /**
-     * Returns text pager represenation.
+     * Returns text pager representation.
      *
      * Example:
      * @1@ - the first page is a link
@@ -207,5 +184,21 @@ class PagerExtensionTest extends ProphecyTestCase
         $txt = preg_replace('|<a[^>]*>|', '@', $txt);
         $txt = preg_replace('|</a>|', '@ ', $txt);
         return $txt;
+    }
+
+    /**
+     * @param int $count
+     * @param int $pageCount
+     * @param int $currentPage
+     *
+     * @return Pager|ObjectProphecy
+     */
+    protected function getPagerMock($count, $pageCount, $currentPage)
+    {
+        $pager = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\Pager\Pager');
+        $pager->getCount()->willReturn($count);
+        $pager->getPageCount()->willReturn($pageCount);
+        $pager->getCurrentPage()->willReturn($currentPage);
+        return $pager;
     }
 }

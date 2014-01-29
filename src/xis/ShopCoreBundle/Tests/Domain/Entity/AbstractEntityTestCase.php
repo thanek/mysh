@@ -1,6 +1,5 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Entity;
-
+namespace xis\ShopCoreBundle\Tests\Domain\Entity;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
 

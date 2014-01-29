@@ -6,8 +6,8 @@ use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\DependencyInjection\Container;
 use xis\ShopCoreBundle\Controller\ProductController;
-use xis\ShopCoreBundle\Entity\Product;
-use xis\ShopCoreBundle\Repository\DoctrineProductRepository;
+use xis\ShopCoreBundle\Domain\Entity\Product;
+use xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository;
 
 class ProductControllerTest extends ProphecyTestCase
 {
@@ -25,7 +25,7 @@ class ProductControllerTest extends ProphecyTestCase
         $pager = $this->prophesize('PagerfantaDoctrinePager');
         $request = $this->prophesize('Symfony\Component\HttpFoundation\Request');
         $request->get('page', 1)->willReturn($pageNum);
-        $productRepo = $this->prophesize('xis\ShopCoreBundle\Repository\DoctrineProductRepository');
+        $productRepo = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository');
         $productRepo->getProducts(60, $pageNum)->willReturn($pager);
 
         $controller = new ProductController($request->reveal(), $productRepo->reveal());

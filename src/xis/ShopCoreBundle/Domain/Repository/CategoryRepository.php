@@ -1,7 +1,7 @@
 <?php
-namespace xis\ShopCoreBundle\Repository;
+namespace xis\ShopCoreBundle\Domain\Repository;
 
-use xis\ShopCoreBundle\Entity\Category;
+use xis\ShopCoreBundle\Domain\Entity\Category;
 
 interface CategoryRepository
 {

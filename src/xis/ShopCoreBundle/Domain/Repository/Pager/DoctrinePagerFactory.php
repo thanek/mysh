@@ -1,5 +1,5 @@
 <?php
-namespace xis\ShopCoreBundle\Repository\Pager;
+namespace xis\ShopCoreBundle\Domain\Repository\Pager;
 
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;

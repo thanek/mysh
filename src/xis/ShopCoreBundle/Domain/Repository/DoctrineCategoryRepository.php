@@ -1,8 +1,8 @@
 <?php
-namespace xis\ShopCoreBundle\Repository;
+namespace xis\ShopCoreBundle\Domain\Repository;
 
 use Doctrine\ORM\EntityManager;
-use xis\ShopCoreBundle\Entity\Category;
+use xis\ShopCoreBundle\Domain\Entity\Category;
 
 class DoctrineCategoryRepository implements CategoryRepository
 {

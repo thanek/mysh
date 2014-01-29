@@ -1,9 +1,9 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Repository;
+namespace xis\ShopCoreBundle\Domain\Tests\Repository;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
-use xis\ShopCoreBundle\Entity\Product;
-use xis\ShopCoreBundle\Repository\DoctrineProductRepository;
+use xis\ShopCoreBundle\Domain\Entity\Product;
+use xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository;
 
 class DoctrineProductRepositoryTest extends ProphecyTestCase
 {
@@ -22,13 +22,13 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
         $entityManager->createQueryBuilder()->willReturn($queryBuilder);
 
         $pageNum = 20;
-        $pager = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\PagerfantaPager');
+        $pager = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\Pager\PagerfantaPager');
         $pager->getCount()->willReturn(100);
         $pager->setCurrentPage($pageNum)->willReturn($pager);
         $pager->getCurrentPage()->willReturn($pageNum);
         $pager->setLimit(10)->willReturn($pager);
 
-        $pagerFactory = $this->prophesize('xis\ShopCoreBundle\Repository\Pager\PagerFactory');
+        $pagerFactory = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\Pager\PagerFactory');
         $pagerFactory->getPager($queryBuilder)->willReturn($pager);
 
         $productRepository = new DoctrineProductRepository($entityManager->reveal(), $pagerFactory->reveal());
