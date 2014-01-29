@@ -13,6 +13,7 @@ class ProductTest extends AbstractEntityTestCase
 
     public function testSettersAndGetters()
     {
+        $this->checkId();
         $this->checkGetterAndSetter('name', 'foo');
         $this->checkGetterAndSetter('nameSlug', 'foo');
         $this->checkGetterAndSetter('signature', 'foo');

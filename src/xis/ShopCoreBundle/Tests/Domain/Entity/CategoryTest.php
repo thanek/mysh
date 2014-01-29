@@ -13,6 +13,7 @@ class CategoryTest extends AbstractEntityTestCase
 
     public function testSettersAndGetters()
     {
+        $this->checkId();
         $this->checkGetterAndSetter('name', 'foo');
         $this->checkGetterAndSetter('slug', 'foo');
         $this->checkGetterAndSetter('sortOrder', 1);

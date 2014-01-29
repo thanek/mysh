@@ -8,7 +8,7 @@ class AbstractEntityTestCase extends ProphecyTestCase
     /** @var  Object */
     protected $entity;
 
-    public function testGetId()
+    public function checkId()
     {
         $this->assertEquals(null, $this->entity->getId());
     }
