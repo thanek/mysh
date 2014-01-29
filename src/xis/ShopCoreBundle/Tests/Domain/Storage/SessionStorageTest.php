@@ -37,6 +37,20 @@ class SessionStorageTest extends ProphecyTestCase
     /**
      * @test
      */
+    public function shouldGetStoredObject()
+    {
+        $obj = array('foo' => 'bar');
+        $this->storage->store($obj);
+        $this->session->get('testStorage')->willReturn($obj);
+
+        $objGot = $this->storage->get();
+
+        $this->assertEquals($objGot, $obj);
+    }
+
+    /**
+     * @test
+     */
     public function shouldRemoveSessionEntry()
     {
         $obj = array('foo' => 'bar');

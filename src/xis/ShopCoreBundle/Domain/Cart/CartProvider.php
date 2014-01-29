@@ -1,6 +1,7 @@
 <?php
 namespace xis\ShopCoreBundle\Domain\Cart;
 
+use xis\ShopCoreBundle\Domain\Entity\Cart;
 use xis\ShopCoreBundle\Domain\Storage\Storage;
 
 class CartProvider

@@ -14,7 +14,7 @@ use xis\ShopCoreBundle\Domain\Cart\CartService;
 /**
  * @Route(service="xis.shop.controller.cart")
  */
-class CartController extends Controller implements CartAddItemObserver
+class CartController extends Controller
 {
     /** @var CartService */
     private $cartService;
@@ -32,12 +32,29 @@ class CartController extends Controller implements CartAddItemObserver
      */
     public function addItemAction($id)
     {
-        return $this->cartService->addItem($id, $this);
+        $this->cartService->addItem($id);
+
+        $this->get('session')->getFlashBag()->add('notice', 'Item added to cart');
+        return $this->redirect($this->generateUrl('products_all'));
     }
 
-    function itemAdded(CartItem $cartItem)
+    /**
+     * @Template()
+     */
+    public function previewAction()
     {
-        $this->get('session')->getFlashBag()->add('notice', 'Item added to cart');
+        $cart = $this->cartService->getCart();
+        return array('cart' => $cart);
+    }
+
+    /**
+     * @Route("/cart/dispose",name="cart_dispose")
+     */
+    public function disposeAction()
+    {
+        $this->cartService->disposeCart();
+
+        $this->get('session')->getFlashBag()->add('notice', 'Cart has been disposed');
         return $this->redirect($this->generateUrl('products_all'));
     }
 }

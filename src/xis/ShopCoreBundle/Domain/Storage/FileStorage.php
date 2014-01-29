@@ -3,13 +3,21 @@ namespace xis\ShopCoreBundle\Domain\Storage;
 
 class FileStorage implements Storage
 {
+    /** @var string */
+    private $filename;
+
+    public function __construct($filename)
+    {
+        $this->filename = $filename;
+    }
+
     /**
      * @param $obj
      * @return null
      */
     function store($obj)
     {
-        $fh = fopen('/tmp/cart', 'w');
+        $fh = fopen($this->filename, 'w');
         fwrite($fh, serialize($obj));
         fclose($fh);
     }
@@ -20,7 +28,7 @@ class FileStorage implements Storage
     function get()
     {
         $obj = null;
-        $fh = @fopen('/tmp/cart', 'r');
+        $fh = @fopen($this->filename, 'r');
         if ($fh) {
             $str = fgets($fh);
             fclose($fh);
@@ -34,6 +42,6 @@ class FileStorage implements Storage
      */
     function clear()
     {
-        unlink('/tmp/cart');
+        unlink($this->filename);
     }
 }

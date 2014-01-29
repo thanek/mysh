@@ -35,4 +35,15 @@ interface CartItemInterface
      * @return int
      */
     function getQuantity();
+
+    /**
+     * @param float $price
+     * @return null
+     */
+    public function setPrice($price);
+
+    /**
+     * @return float
+     */
+    public function getPrice();
 }

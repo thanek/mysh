@@ -1,9 +1,9 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Domain\Cart;
+namespace xis\ShopCoreBundle\Tests\Domain\Entity;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
-use xis\ShopCoreBundle\Domain\Cart\Cart;
-use xis\ShopCoreBundle\Domain\Cart\CartItem;
+use xis\ShopCoreBundle\Domain\Entity\Cart;
+use xis\ShopCoreBundle\Domain\Entity\CartItem;
 
 class CartTest extends ProphecyTestCase
 {

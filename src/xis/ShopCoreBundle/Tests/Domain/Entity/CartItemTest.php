@@ -1,8 +1,7 @@
 <?php
-namespace xis\ShopCoreBundle\Tests\Domain\Cart;
+namespace xis\ShopCoreBundle\Tests\Domain\Entity;
 
-use xis\ShopCoreBundle\Domain\Cart\CartItem;
-use xis\ShopCoreBundle\Tests\Domain\Entity\AbstractEntityTestCase;
+use xis\ShopCoreBundle\Domain\Entity\CartItem;
 
 class CartItemTest extends AbstractEntityTestCase
 {

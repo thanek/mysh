@@ -1,0 +1,7 @@
+Masz w koszyku {{ cart.count }} produktów za łączną kwotę {{ cart.amount }}.
+<ul>
+    {% for item in cart.items %}
+        <li>{{ item.productName }} | {{ item.quantity }}</li>
+    {% endfor %}
+</ul>
+<a href="{{ path('cart_dispose') }}">Opróżnij koszyk</a>

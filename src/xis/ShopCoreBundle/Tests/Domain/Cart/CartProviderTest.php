@@ -4,7 +4,7 @@ namespace xis\ShopCoreBundle\Tests\Domain\Cart;
 use Prophecy\Argument\Token\AnyValuesToken;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use xis\ShopCoreBundle\Domain\Cart\CartItem;
+use xis\ShopCoreBundle\Domain\Entity\CartItem;
 use xis\ShopCoreBundle\Domain\Cart\CartProvider;
 use xis\ShopCoreBundle\Domain\Storage\SessionStorage;
 use xis\ShopCoreBundle\Domain\Storage\Storage;

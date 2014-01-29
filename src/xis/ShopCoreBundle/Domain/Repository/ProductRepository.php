@@ -1,6 +1,7 @@
 <?php
 namespace xis\ShopCoreBundle\Domain\Repository;
 
+use xis\ShopCoreBundle\Domain\Entity\Product;
 use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
 
 interface ProductRepository
@@ -12,4 +13,10 @@ interface ProductRepository
      * @return Pager
      */
     function getProducts($limit, $page = 0);
+
+    /**
+     * @param $id
+     * @return Product
+     */
+    function find($id);
 }

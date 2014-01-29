@@ -40,6 +40,13 @@ body {
 
 #header .container #logo {
     font-size: 36px;
+    border: 1px solid red;
+    width: 250px;
+    float: left;
+}
+
+#header .container #cart-preview {
+    float: right;
 }
 
 #navigation {

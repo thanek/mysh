@@ -3,6 +3,7 @@ namespace xis\ShopCoreBundle\Domain\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
+use xis\ShopCoreBundle\Domain\Entity\Product;
 use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
 use xis\ShopCoreBundle\Domain\Repository\Pager\PagerFactory;
 use xis\ShopCoreBundle\Domain\Repository\Pager\PagerfantaPager;
@@ -45,5 +46,19 @@ class DoctrineProductRepository implements ProductRepository
             ->where('p.status=1')
             ->andWhere('p.quantity>0');
         return $queryBuilder;
+    }
+
+    /**
+     * @param $id
+     * @return Product
+     */
+    function find($id)
+    {
+        $ret = $this->getAllProductsQueryBuilder()
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+        return $ret;
     }
 }

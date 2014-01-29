@@ -12,11 +12,7 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
      */
     public function getProductsShouldReturnPager()
     {
-        $queryBuilder = $this->prophesize('Doctrine\ORM\QueryBuilder');
-        $queryBuilder->select('p')->willReturn($queryBuilder);
-        $queryBuilder->from('xisShopCoreBundle:Product', 'p')->willReturn($queryBuilder);
-        $queryBuilder->where('p.status=1')->willReturn($queryBuilder);
-        $queryBuilder->andWhere('p.quantity>0')->willReturn($queryBuilder);
+        $queryBuilder = $this->createAllProductsQueryBuilderMock();
 
         $entityManager = $this->prophesize('Doctrine\ORM\EntityManager');
         $entityManager->createQueryBuilder()->willReturn($queryBuilder);
@@ -36,6 +32,45 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
 
         $this->assertEquals($pageNum, $actualPager->getCurrentPage());
         $this->assertEquals(100, $actualPager->getCount());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFindProduct()
+    {
+        $product = new Product();
+
+        $query = $this->prophesize('Doctrine\ORM\AbstractQuery');
+        $query->getSingleResult()->willReturn($product);
+
+        $queryBuilder = $this->createAllProductsQueryBuilderMock();
+        $queryBuilder->andWhere('p.id = :id')->willReturn($queryBuilder);
+        $queryBuilder->setParameter('id', 123)->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->willReturn($query);
+
+        $entityManager = $this->prophesize('Doctrine\ORM\EntityManager');
+        $entityManager->createQueryBuilder()->willReturn($queryBuilder);
+
+        $pagerFactory = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\Pager\PagerFactory');
+        $productRepository = new DoctrineProductRepository($entityManager->reveal(), $pagerFactory->reveal());
+
+        $actualProduct = $productRepository->find(123);
+
+        $this->assertEquals($product, $actualProduct);
+    }
+
+    /**
+     * @return \Prophecy\Prophecy\ObjectProphecy
+     */
+    protected function createAllProductsQueryBuilderMock()
+    {
+        $queryBuilder = $this->prophesize('Doctrine\ORM\QueryBuilder');
+        $queryBuilder->select('p')->willReturn($queryBuilder);
+        $queryBuilder->from('xisShopCoreBundle:Product', 'p')->willReturn($queryBuilder);
+        $queryBuilder->where('p.status=1')->willReturn($queryBuilder);
+        $queryBuilder->andWhere('p.quantity>0')->willReturn($queryBuilder);
+        return $queryBuilder;
     }
 
 } 

@@ -19,6 +19,7 @@
 
         <service id="xis.shop.service.cart" class="xis\ShopCoreBundle\Domain\Cart\CartService">
             <argument type="service" id="xis.shop.cart.provider"/>
+            <argument type="service" id="xis.shop.repository.product"/>
         </service>
     </services>
 

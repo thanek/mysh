@@ -1,5 +1,8 @@
 <?php
-namespace xis\ShopCoreBundle\Domain\Cart;
+namespace xis\ShopCoreBundle\Domain\Entity;
+
+use xis\ShopCoreBundle\Domain\Cart\CartInterface;
+use xis\ShopCoreBundle\Domain\Cart\CartItemInterface;
 
 class Cart implements CartInterface
 {
@@ -65,5 +68,29 @@ class Cart implements CartInterface
     protected function placeItem(CartItemInterface $cartItem)
     {
         $this->items[$cartItem->getProductId()] = $cartItem;
+    }
+
+    /**
+     * @return int
+     */
+    function getCount()
+    {
+        $cnt = 0;
+        foreach ($this->items as $item) {
+            $cnt += $item->getQuantity();
+        }
+        return $cnt;
+    }
+
+    /**
+     * @return double
+     */
+    function getAmount()
+    {
+        $amount = 0;
+        foreach ($this->items as $item) {
+            $amount += $item->getQuantity() * $item->getPrice();
+        }
+        return $amount;
     }
 }

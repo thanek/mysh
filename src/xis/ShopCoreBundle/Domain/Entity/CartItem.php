@@ -1,5 +1,7 @@
 <?php
-namespace xis\ShopCoreBundle\Domain\Cart;
+namespace xis\ShopCoreBundle\Domain\Entity;
+
+use xis\ShopCoreBundle\Domain\Cart\CartItemInterface;
 
 class CartItem implements CartItemInterface
 {
@@ -9,6 +11,8 @@ class CartItem implements CartItemInterface
     private $productName;
     /** @var int */
     private $quantity;
+    /** @var price */
+    private $price;
 
     /**
      * @param int $productId
@@ -61,4 +65,20 @@ class CartItem implements CartItemInterface
         return $this->quantity;
     }
 
+    /**
+     * @param float $price
+     * @return null
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
 }

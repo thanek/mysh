@@ -31,4 +31,14 @@ interface CartInterface
      * @return null
      */
     function modifyItem(CartItemInterface $cartItem);
+
+    /**
+     * @return int
+     */
+    function getCount();
+
+    /**
+     * @return double
+     */
+    function getAmount();
 }
