@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="xis.shop.storage.session" class="xis\ShopCoreBundle\Domain\Storage\SessionStorage">
+            <argument type="string">cart</argument>
+            <argument type="service" id="session"/>
+        </service>
+
+        <service id="xis.shop.storage.file" class="xis\ShopCoreBundle\Domain\Storage\FileStorage">
+            <argument type="string">/tmp/cart</argument>
+        </service>
+
+        <service id="xis.shop.cart.provider" class="xis\ShopCoreBundle\Domain\Cart\CartProvider">
+            <argument type="service" id="xis.shop.storage.session"/>
+        </service>
+
+        <service id="xis.shop.service.cart" class="xis\ShopCoreBundle\Domain\Cart\CartService">
+            <argument type="service" id="xis.shop.cart.provider"/>
+        </service>
+    </services>
+
+</container>

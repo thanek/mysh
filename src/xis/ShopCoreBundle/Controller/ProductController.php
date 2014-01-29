@@ -3,7 +3,9 @@ namespace xis\ShopCoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use xis\ShopCoreBundle\Domain\Repository\ProductRepository;
 
 /**
@@ -30,6 +32,7 @@ class ProductController
     {
         $page = $this->request->get('page', 1);
         $pager = $this->productRepository->getProducts(60, $page);
+
         return array('pager' => $pager);
     }
 

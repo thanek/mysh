@@ -1,59 +1,43 @@
 <?php
 namespace xis\ShopCoreBundle\Domain\Storage;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 class SessionStorage implements Storage
 {
     /** @var string */
-    private $prefix;
+    private $key;
+    /** @var SessionInterface */
+    private $session;
 
-    function __construct($prefix)
+    function __construct($key, SessionInterface $session)
     {
-        $this->prefix = $prefix;
+        $this->key = $key;
+        $this->session = $session;
     }
 
-
     /**
-     * @return null
+     * @return mixed
      */
-    function generateId()
+    public function get()
     {
-        $this->ensureSessionStarted();
-        return session_id();
+        return $this->session->get($this->key);
     }
 
     /**
-     * @param $id
      * @param $obj
      * @return null
      */
-    function store($id, $obj)
+    function store($obj)
     {
-        $_SESSION[$this->getKey($id)] = $obj;
+        $this->session->set($this->key, $obj);
     }
 
     /**
-     * @param $id
      * @return null
      */
-    function clear($id)
+    function clear()
     {
-        unset($_SESSION[$this->getKey($id)]);
-
-    }
-
-    protected function ensureSessionStarted()
-    {
-        if (session_id() == null) {
-            session_start();
-        }
-    }
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getKey($id)
-    {
-        return $this->prefix . '::' . $id;
+        $this->session->remove($this->key);
     }
 }

@@ -7,6 +7,7 @@
         <import resource="controllers.xml"/>
         <import resource="repositories.xml"/>
         <import resource="pager.xml"/>
+        <import resource="cart.xml"/>
     </imports>
 
 </container>

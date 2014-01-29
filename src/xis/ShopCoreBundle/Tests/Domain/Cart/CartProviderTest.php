@@ -20,7 +20,6 @@ class CartProviderTest extends ProphecyTestCase
     {
         parent::setup();
         $this->storage = $this->prophesize('xis\ShopCoreBundle\Domain\Storage\Storage');
-        $this->storage->generateId()->willReturn('abcdef123456');
         $this->cartProvider = new CartProvider($this->storage->reveal());
     }
 
@@ -43,9 +42,11 @@ class CartProviderTest extends ProphecyTestCase
         $cartItem = new CartItem();
         $cartItem->setProductId(123);
         $cartItem->setQuantity(1);
-
         $cart1 = $this->cartProvider->getOrCreateCart();
         $cart1->addItem($cartItem);
+        $this->cartProvider->saveCart($cart1);
+        $this->storage->get()->willReturn($cart1);
+
         $cart2 = $this->cartProvider->getOrCreateCart();
 
         $this->assertEquals($cart1, $cart2);
@@ -57,7 +58,7 @@ class CartProviderTest extends ProphecyTestCase
     public function shouldStoreCart()
     {
         $cart = $this->cartProvider->getOrCreateCart();
-        $this->storage->store('abcdef123456', $cart)->shouldBeCalled();
+        $this->storage->store($cart)->shouldBeCalled();
 
         $this->cartProvider->saveCart($cart);
     }
@@ -68,7 +69,7 @@ class CartProviderTest extends ProphecyTestCase
     public function shouldClearCart()
     {
         $this->cartProvider->getOrCreateCart();
-        $this->storage->clear('abcdef123456')->shouldBeCalled();
+        $this->storage->clear()->shouldBeCalled();
 
         $this->cartProvider->clear();
     }

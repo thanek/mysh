@@ -4,20 +4,18 @@ namespace xis\ShopCoreBundle\Domain\Storage;
 interface Storage
 {
     /**
-     * @return mixed
-     */
-    function generateId();
-
-    /**
-     * @param $id
      * @param $obj
      * @return null
      */
-    function store($id, $obj);
+    function store($obj);
 
     /**
-     * @param $id
+     * @return mixed
+     */
+    function get();
+
+    /**
      * @return null
      */
-    function clear($id);
+    function clear();
 } 

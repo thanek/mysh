@@ -7,8 +7,6 @@ class CartProvider
 {
     /** @var Storage */
     private $storage;
-    private $cart;
-    private $id;
 
     function __construct($storage)
     {
@@ -17,20 +15,21 @@ class CartProvider
 
     public function getOrCreateCart()
     {
-        if (!$this->cart) {
-            $this->cart = new Cart();
-            $this->id = $this->storage->generateId();
+        $cart = $this->storage->get();
+        if (!$cart) {
+            $cart = new Cart();
+            $this->saveCart($cart);
         }
-        return $this->cart;
+        return $cart;
     }
 
     public function saveCart(CartInterface $cart)
     {
-        $this->storage->store($this->id, $cart);
+        $this->storage->store($cart);
     }
 
     public function clear()
     {
-        $this->storage->clear($this->id);
+        $this->storage->clear();
     }
 } 

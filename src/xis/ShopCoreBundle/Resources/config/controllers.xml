@@ -8,10 +8,16 @@
                  scope="request">
             <argument type="service" id="request"/>
             <argument type="service" id="xis.shop.repository.product"/>
+            <argument type="service" id="service_container"/>
         </service>
 
         <service id="xis.shop.controller.category" class="xis\ShopCoreBundle\Controller\CategoryController">
             <argument type="service" id="xis.shop.repository.category"/>
+        </service>
+
+        <service id="xis.shop.controller.cart" class="xis\ShopCoreBundle\Controller\CartController">
+            <argument type="service" id="xis.shop.service.cart"/>
+            <argument type="service" id="service_container"/>
         </service>
     </services>
 

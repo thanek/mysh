@@ -26,6 +26,19 @@
     </div>
 </div>
 <div id="main-content">
+
+    <div class="flash-container container">
+        {% for flashMessage in app.session.flashbag.get('fos_user_success') %}
+            <div class="flash-message alert alert-success">{{ flashMessage|trans({}, 'FOSUserBundle') }}</div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="flash-message alert alert-success">{{ flashMessage }}</div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="flash-message alert alert-error">{{ flashMessage }}</div>
+        {% endfor %}
+    </div>
+
     <div class="container">
         {% block body %}
         {% endblock %}
