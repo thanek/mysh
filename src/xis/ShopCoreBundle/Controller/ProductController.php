@@ -15,7 +15,7 @@ use xis\ShopCoreBundle\Repository\ProductRepository;
 /**
  * @Route(service="xis.shop.controller.product")
  */
-class ProductController extends Controller
+class ProductController
 {
     /** @var  Request */
     private $request;
