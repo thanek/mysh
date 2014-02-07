@@ -3,8 +3,9 @@ namespace xis\ShopCoreBundle\Tests\Controller;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use xis\ShopCoreBundle\Controller\CartController;
+use xis\ShopCoreBundle\Controller\HttpFacade;
 use xis\ShopCoreBundle\Domain\Cart\CartService;
 use xis\ShopCoreBundle\Domain\Entity\Cart;
 
@@ -12,19 +13,19 @@ class CartControllerTest extends ProphecyTestCase
 {
     /** @var CartController */
     private $cartController;
-    /** @var  CartService|ObjectProphecy */
+    /** @var CartService|ObjectProphecy */
     private $cartService;
-    /** @var ContainerInterface|ObjectProphecy */
-    private $container;
+    /** @var HttpFacade|ObjectProphecy */
+    private $http;
 
     public function setup()
     {
         parent::setup();
 
         $this->cartService = $this->prophesize('xis\ShopCoreBundle\Domain\Cart\CartService');
-        $this->container = $this->prophesize('Symfony\Component\DependencyInjection\ContainerInterface');
+        $this->http = $this->prophesize('xis\ShopCoreBundle\Controller\HttpFacade');
 
-        $this->cartController = new CartController($this->cartService->reveal(), $this->container->reveal());
+        $this->cartController = new CartController($this->http->reveal(), $this->cartService->reveal());
     }
 
     /**
@@ -32,16 +33,13 @@ class CartControllerTest extends ProphecyTestCase
      */
     public function shouldAddItem()
     {
+        $response = $this->expectRedirectResponse('http://blah.bla');
         $this->expectFlashMessage('notice', 'Item added to cart');
-        $this->expectGeneratingUrl('products_all', 'http://some.url/products_all');
-
         $this->cartService->addItem(123)->shouldBeCalled();
 
-        /** @var \Symfony\Component\HttpFoundation\RedirectResponse $output */
         $output = $this->cartController->addItemAction(123);
 
-        $this->assertEquals('Symfony\Component\HttpFoundation\RedirectResponse', get_class($output));
-        $this->assertEquals('http://some.url/products_all', $output->getTargetUrl());
+        $this->assertEquals($response, $output);
     }
 
     /**
@@ -62,27 +60,29 @@ class CartControllerTest extends ProphecyTestCase
      */
     public function shouldDisposeCart()
     {
+        $response = $this->expectRedirectResponse('http://blah.bla');
         $this->expectFlashMessage('notice', 'Cart has been disposed');
-        $this->expectGeneratingUrl('products_all', 'http://some.url/blah');
         $this->cartService->disposeCart()->shouldBeCalled();
 
-        $this->cartController->disposeAction();
+        $output = $this->cartController->disposeAction();
+
+        $this->assertEquals($response, $output);
     }
 
     protected function expectFlashMessage($type, $message)
     {
-        $session = $this->prophesize('Symfony\Component\HttpFoundation\Session\Session');
-        $this->container->get('session')->willReturn($session);
-
-        $flashBag = $this->prophesize('Symfony\Component\HttpFoundation\Session\Flash\FlashBag');
-        $session->getFlashBag()->willReturn($flashBag);
-        $flashBag->add($type, $message)->shouldBeCalled();
+        $this->http->addFlashMessage($type, $message)->shouldBeCalled();
     }
 
-    protected function expectGeneratingUrl($route, $outputUrl)
+    /**
+     * @param string $url
+     * @param int $status
+     * @return RedirectResponse
+     */
+    protected function expectRedirectResponse($url, $status = 302)
     {
-        $router = $this->prophesize('Symfony\Bundle\FrameworkBundle\Routing\Router');
-        $this->container->get('router')->willReturn($router);
-        $router->generate($route, array(), false)->willReturn($outputUrl);
+        $response = new RedirectResponse($url, $status);
+        $this->http->redirect('products_all')->willReturn($response);
+        return $response;
     }
 } 

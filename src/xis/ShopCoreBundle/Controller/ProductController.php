@@ -13,14 +13,14 @@ use xis\ShopCoreBundle\Domain\Repository\ProductRepository;
  */
 class ProductController
 {
-    /** @var  Request */
-    private $request;
-    /** @var  ProductRepository */
+    /** @var HttpFacade */
+    private $http;
+    /** @var ProductRepository */
     private $productRepository;
 
-    function __construct(Request $request, ProductRepository $productRepository)
+    function __construct(HttpFacade $http, ProductRepository $productRepository)
     {
-        $this->request = $request;
+        $this->http = $http;
         $this->productRepository = $productRepository;
     }
 
@@ -30,7 +30,7 @@ class ProductController
      */
     public function allAction()
     {
-        $page = $this->request->get('page', 1);
+        $page = $this->http->getRequestParam('page', 1);
         $pager = $this->productRepository->getProducts(60, $page);
 
         return array('pager' => $pager);

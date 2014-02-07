@@ -14,17 +14,17 @@ use xis\ShopCoreBundle\Domain\Cart\CartService;
 /**
  * @Route(service="xis.shop.controller.cart")
  */
-class CartController extends Controller
+class CartController
 {
     /** @var CartService */
     private $cartService;
-    /** @var ContainerInterface */
-    protected $container;
+    /** @var HttpFacade */
+    protected $http;
 
-    function __construct(CartService $cartService, ContainerInterface $container)
+    function __construct(HttpFacade $http, CartService $cartService)
     {
+        $this->http = $http;
         $this->cartService = $cartService;
-        $this->container = $container;
     }
 
     /**
@@ -34,8 +34,8 @@ class CartController extends Controller
     {
         $this->cartService->addItem($id);
 
-        $this->get('session')->getFlashBag()->add('notice', 'Item added to cart');
-        return $this->redirect($this->generateUrl('products_all'));
+        $this->http->addFlashMessage('notice', 'Item added to cart');
+        return $this->http->redirect('products_all');
     }
 
     /**
@@ -54,7 +54,7 @@ class CartController extends Controller
     {
         $this->cartService->disposeCart();
 
-        $this->get('session')->getFlashBag()->add('notice', 'Cart has been disposed');
-        return $this->redirect($this->generateUrl('products_all'));
+        $this->http->addFlashMessage('notice', 'Cart has been disposed');
+        return $this->http->redirect('products_all');
     }
 }

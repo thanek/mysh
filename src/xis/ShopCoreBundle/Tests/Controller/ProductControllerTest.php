@@ -22,13 +22,14 @@ class ProductControllerTest extends ProphecyTestCase
         );
         $pageNum = 1;
 
+        $http = $this->prophesize('xis\ShopCoreBundle\Controller\HttpFacade');
+        $http->getRequestParam('page', 1)->willReturn($pageNum);
+
         $pager = $this->prophesize('PagerfantaDoctrinePager');
-        $request = $this->prophesize('Symfony\Component\HttpFoundation\Request');
-        $request->get('page', 1)->willReturn($pageNum);
         $productRepo = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository');
         $productRepo->getProducts(60, $pageNum)->willReturn($pager);
 
-        $controller = new ProductController($request->reveal(), $productRepo->reveal());
+        $controller = new ProductController($http->reveal(), $productRepo->reveal());
         $output = $controller->allAction();
 
         $this->assertEquals($pager->reveal(), $output['pager']);
