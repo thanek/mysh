@@ -1,14 +1,8 @@
 <?php
 namespace xis\ShopCoreBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use xis\ShopCoreBundle\Domain\Cart\CartAddItemObserver;
-use xis\ShopCoreBundle\Domain\Cart\CartItem;
-use xis\ShopCoreBundle\Domain\Cart\CartProvider;
 use xis\ShopCoreBundle\Domain\Cart\CartService;
 
 /**

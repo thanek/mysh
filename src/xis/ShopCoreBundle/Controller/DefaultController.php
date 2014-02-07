@@ -1,5 +1,4 @@
 <?php
-
 namespace xis\ShopCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -1,13 +1,9 @@
 <?php
 namespace xis\ShopCoreBundle\Tests\Controller;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Prophecy\PhpUnit\ProphecyTestCase;
-use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Component\DependencyInjection\Container;
 use xis\ShopCoreBundle\Controller\ProductController;
 use xis\ShopCoreBundle\Domain\Entity\Product;
-use xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository;
 
 class ProductControllerTest extends ProphecyTestCase
 {

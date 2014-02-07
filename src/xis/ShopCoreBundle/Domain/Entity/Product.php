@@ -1,5 +1,4 @@
 <?php
-
 namespace xis\ShopCoreBundle\Domain\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

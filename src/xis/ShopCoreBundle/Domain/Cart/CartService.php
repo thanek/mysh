@@ -1,7 +1,6 @@
 <?php
 namespace xis\ShopCoreBundle\Domain\Cart;
 
-use xis\ShopCoreBundle\Domain\Cart\CartProvider;
 use xis\ShopCoreBundle\Domain\Entity\CartItem;
 use xis\ShopCoreBundle\Domain\Entity\Product;
 use xis\ShopCoreBundle\Domain\Repository\EntityNotFoundException;
