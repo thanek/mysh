@@ -26,7 +26,7 @@ class PagerExtensionTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getFunctionsShouldContainPagerFunction()
+    public function shouldContainPagerFunctionInFunctionsList()
     {
         $functions = $this->pagerExtension->getFunctions();
 
@@ -36,7 +36,7 @@ class PagerExtensionTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getNameShouldReturnPagerName()
+    public function shouldReturnPagerName()
     {
         $name = $this->pagerExtension->getName();
 
@@ -46,20 +46,7 @@ class PagerExtensionTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPagerShouldReturnShortPager()
-    {
-        $pager = $this->getPagerMock(1, 1, 1);
-
-        $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
-        $pagerTxt = $this->stripTags($pagerHtml);
-
-        $this->assertEquals('[ *1* ]', $pagerTxt);
-    }
-
-    /**
-     * @test
-     */
-    public function getPagerShouldReturnValidHtml()
+    public function shouldReturnValidHtml()
     {
         $this->router->generate('all', new AnyValuesToken())->willReturn('someUrl');
 
@@ -73,10 +60,11 @@ class PagerExtensionTest extends ProphecyTestCase
         );
     }
 
+
     /**
      * @test
      */
-    public function getPagerShouldGenerateValidLinks()
+    public function shouldGenerateValidLinks()
     {
         $this->router->generate('products_all', array('page' => 1))->willReturn('http://some.pla.ce/all?page=1');
         $this->router->generate('products_all', array('page' => 3))->willReturn('http://some.pla.ce/all?page=3');
@@ -92,10 +80,11 @@ class PagerExtensionTest extends ProphecyTestCase
         $this->assertEquals('http://some.pla.ce/all?page=3', $m[1][1]);
     }
 
+
     /**
      * @test
      */
-    public function getPagerShouldGenerateLinksWithCustomPageParamName()
+    public function shouldGenerateLinksWithCustomPageParamName()
     {
         $this->router->generate('home', array('strona' => 1))->willReturn('http://some.pla.ce/all?strona=1');
         $this->router->generate('home', array('strona' => 3))->willReturn('http://some.pla.ce/all?strona=3');
@@ -114,7 +103,20 @@ class PagerExtensionTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPagerShouldReturnLongPager()
+    public function shouldReturnShortPagerForSinglePageResult()
+    {
+        $pager = $this->getPagerMock(1, 1, 1);
+
+        $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
+        $pagerTxt = $this->stripTags($pagerHtml);
+
+        $this->assertEquals('[ *1* ]', $pagerTxt);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnLongPagerForManyResults()
     {
         $pager = $this->getPagerMock(100, 10, 1);
 
@@ -127,7 +129,7 @@ class PagerExtensionTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPagerShouldReturnLongPagerWithFifthElementSelected()
+    public function shouldReturnLongPagerWithFifthElementSelected()
     {
         $pager = $this->getPagerMock(100, 10, 5);
 
@@ -140,7 +142,7 @@ class PagerExtensionTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPagerShouldShowDotsOnTheLeftForBigPageNumber()
+    public function shouldShowDotsOnTheLeftForBigPageNumber()
     {
         $pager = $this->getPagerMock(100, 10, 8);
 
@@ -153,7 +155,20 @@ class PagerExtensionTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPagerShouldShowNoDotsForAveragePager()
+    public function shouldShowDotsOnTheRightForSmallPageNumber()
+    {
+        $pager = $this->getPagerMock(100, 10, 2);
+
+        $pagerHtml = $this->pagerExtension->pager($pager->reveal(), 'all');
+        $pagerTxt = $this->stripTags($pagerHtml);
+
+        $this->assertEquals('[ @1@ *2* @3@ @4@ @5@ @6@ @7@ *...* @10@ ]', $pagerTxt);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldShowNoDotsForAveragePager()
     {
         $pager = $this->getPagerMock(100, 5, 3);
 

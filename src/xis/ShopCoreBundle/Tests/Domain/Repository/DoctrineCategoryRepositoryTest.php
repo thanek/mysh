@@ -10,7 +10,7 @@ class DoctrineCategoryRepositoryTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getMainCategoriesShouldGetResultsUsingQueryBuilder()
+    public function shouldGetMainCategoriesUsingQueryBuilder()
     {
         $mainCategories = array(
             new Category(),

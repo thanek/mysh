@@ -9,7 +9,7 @@ class DoctrinePagerFactoryTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPagerShouldCreatePagerFromBuilder()
+    public function shouldCreatePagerFromBuilder()
     {
         $queryBuilder = $this->prophesize('Doctrine\ORM\QueryBuilder');
 

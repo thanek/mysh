@@ -10,7 +10,7 @@ class CategoryControllerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function mainCategoriesActionShouldRetrieveCategoriesFromRepo()
+    public function shouldRetrieveMainCategoriesFromRepo()
     {
         $categories = array(
             new Category(),

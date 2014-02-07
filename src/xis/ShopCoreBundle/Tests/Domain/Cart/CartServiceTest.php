@@ -78,7 +78,6 @@ class CartServiceTest extends ProphecyTestCase
      */
     public function shouldDisposeCartByClearingProvider()
     {
-        $cart = new Cart();
         $this->cartProvider->clear()->shouldBeCalled();
 
         $this->cartService->disposeCart();

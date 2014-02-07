@@ -9,7 +9,7 @@ class ConfigurationTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getConfigTreeBuilderShouldReturnBuilder()
+    public function shouldReturnBuilder()
     {
         $configuration = new Configuration();
 

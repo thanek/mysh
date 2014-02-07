@@ -10,7 +10,7 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getProductsShouldReturnPager()
+    public function shouldReturnAllProductsPager()
     {
         $queryBuilder = $this->createAllProductsQueryBuilderMock();
 

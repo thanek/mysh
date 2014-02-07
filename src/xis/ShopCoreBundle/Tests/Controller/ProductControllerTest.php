@@ -10,7 +10,7 @@ class ProductControllerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function allActionShouldRetrieveProductsPager()
+    public function shouldRetrieveAllProductsPager()
     {
         $products = array(
             new Product(),

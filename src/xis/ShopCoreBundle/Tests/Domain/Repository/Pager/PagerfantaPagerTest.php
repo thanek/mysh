@@ -25,7 +25,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function setLimitShouldInvokePagerfanta()
+    public function shouldSetLimit()
     {
         $this->pager->setLimit(10);
         $this->pagerFanta->setMaxPerPage(10)->shouldHaveBeenCalled();
@@ -34,7 +34,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function setCurrentPageShouldInvokePagerfanta()
+    public function shouldSetCurrentPage()
     {
         $this->pager->setCurrentPage(10);
         $this->pagerFanta->setCurrentPage(10)->shouldHaveBeenCalled();
@@ -43,7 +43,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getCurrentPageShouldInvokePagerfanta()
+    public function shouldGetCurrentPage()
     {
         $this->pagerFanta->getCurrentPage()->willReturn(7);
 
@@ -55,7 +55,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getCountShouldInvokePagerfanta()
+    public function shouldGetCount()
     {
         $this->pagerFanta->getNbResults()->willReturn(11);
 
@@ -67,7 +67,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPageCountInvokePagerfanta()
+    public function shouldGetPageCount()
     {
         $this->pagerFanta->getNbPages()->willReturn(5);
 
@@ -79,7 +79,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getNextPageShouldInvokePagerfanta()
+    public function shouldGetNextPage()
     {
         $this->pagerFanta->getNextPage()->willReturn(6);
 
@@ -91,7 +91,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getPreviousPageShouldInvokePagerfanta()
+    public function shouldGetPreviousPage()
     {
         $this->pagerFanta->getPreviousPage()->willReturn(4);
 
@@ -103,7 +103,7 @@ class PagerfantaPagerTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function getResultsShouldInvokePagerfanta()
+    public function shouldGetResults()
     {
         $this->pagerFanta->getCurrentPageResults()->willReturn(array('foo' => 'bar'));
 
