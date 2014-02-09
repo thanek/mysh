@@ -68,11 +68,15 @@ class Product
      */
     private $signature;
 
+    /**
+     * @var Category
+     */
+    private $category;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -95,7 +99,7 @@ class Product
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -118,7 +122,7 @@ class Product
     /**
      * Get nameSlug
      *
-     * @return string 
+     * @return string
      */
     public function getNameSlug()
     {
@@ -141,7 +145,7 @@ class Product
     /**
      * Get quantity
      *
-     * @return integer 
+     * @return integer
      */
     public function getQuantity()
     {
@@ -164,7 +168,7 @@ class Product
     /**
      * Get image
      *
-     * @return string 
+     * @return string
      */
     public function getImage()
     {
@@ -187,7 +191,7 @@ class Product
     /**
      * Get price
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -210,7 +214,7 @@ class Product
     /**
      * Get dateAdded
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateAdded()
     {
@@ -233,7 +237,7 @@ class Product
     /**
      * Get lastModified
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -256,7 +260,7 @@ class Product
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {
@@ -279,7 +283,7 @@ class Product
     /**
      * Get isPromo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsPromo()
     {
@@ -302,7 +306,7 @@ class Product
     /**
      * Get isAlwaysAvailable
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsAlwaysAvailable()
     {
@@ -325,10 +329,26 @@ class Product
     /**
      * Get signature
      *
-     * @return string 
+     * @return string
      */
     public function getSignature()
     {
         return $this->signature;
+    }
+
+    /**
+     * @return \xis\ShopCoreBundle\Domain\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param \xis\ShopCoreBundle\Domain\Entity\Category $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
     }
 }

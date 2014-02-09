@@ -9,4 +9,10 @@ interface CategoryRepository
      * @return Category[]
      */
     function getMainCategories();
+
+    /**
+     * @param $id
+     * @return Category
+     */
+    function find($id);
 }

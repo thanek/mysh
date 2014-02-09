@@ -1,6 +1,7 @@
 <?php
 namespace xis\ShopCoreBundle\Tests\Domain\Entity;
 
+use xis\ShopCoreBundle\Domain\Entity\Category;
 use xis\ShopCoreBundle\Domain\Entity\Product;
 
 class ProductTest extends AbstractEntityTestCase
@@ -25,5 +26,6 @@ class ProductTest extends AbstractEntityTestCase
         $this->checkGetterAndSetter('status', true);
         $this->checkGetterAndSetter('isPromo', true);
         $this->checkGetterAndSetter('isAlwaysAvailable', true);
+        $this->checkGetterAndSetter('category', new Category());
     }
 }

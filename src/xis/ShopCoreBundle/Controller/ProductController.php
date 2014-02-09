@@ -3,6 +3,7 @@ namespace xis\ShopCoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use xis\ShopCoreBundle\Domain\Repository\CategoryRepository;
 use xis\ShopCoreBundle\Domain\Repository\ProductRepository;
 
 /**
@@ -14,11 +15,14 @@ class ProductController
     private $http;
     /** @var ProductRepository */
     private $productRepository;
+    /** @var CategoryRepository */
+    private $categoryRepository;
 
-    function __construct(HttpFacade $http, ProductRepository $productRepository)
+    function __construct(HttpFacade $http, ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         $this->http = $http;
         $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -27,10 +31,34 @@ class ProductController
      */
     public function allAction()
     {
-        $page = $this->http->getRequestParam('page', 1);
+        $page = $this->getQueryParameter('page', 1);
         $pager = $this->productRepository->getProducts(60, $page);
 
         return array('pager' => $pager);
     }
 
+    /**
+     * @Route("/{slug},c,{id}",name="category")
+     * @Template("xisShopCoreBundle:Product:all.html.twig")
+     */
+    public function browseCategoryAction($slug, $id)
+    {
+        $page = $this->getQueryParameter('page', 1);
+        $category = $this->categoryRepository->find($id);
+        if (!$category) {
+            $this->http->addFlashMessage('notice', 'No such category');
+            return $this->http->redirect('home');
+        }
+
+        $pager = $this->productRepository->getProductsFromCategory($category, 60, $page);
+        return array('pager' => $pager);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getQueryParameter($key, $defaultValue = null)
+    {
+        return $this->http->getRequestParam($key, $defaultValue);
+    }
 }

@@ -17,5 +17,6 @@
         <field name="lft" type="integer" column="cat_lft"/>
         <field name="rgt" type="integer" column="cat_rgt"/>
         <field name="level" type="integer" column="cat_lvl"/>
+        <!--<one-to-many target-entity="Product" mapped-by="category" field="products"/>-->
     </entity>
 </doctrine-mapping>

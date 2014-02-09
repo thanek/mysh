@@ -39,10 +39,13 @@ body {
 }
 
 #header .container #logo {
-    font-size: 36px;
-    border: 1px solid red;
     width: 250px;
     float: left;
+}
+
+#header .container #logo a {
+    font-size: 36px;
+    color: #333333;
 }
 
 #header .container #cart-preview {
@@ -60,17 +63,21 @@ body {
     border-left: 1px solid #eeeeee;
     width: 980px;
 }
+
 #navigation .container ul {
     overflow: auto;
 }
+
 #navigation .container li {
     float: left;
     display: block;
     border-right: 1px solid #eeeeee;
 }
+
 #navigation .container ul:last-child {
     border-right: none;
 }
+
 #navigation .container li a {
     color: #444444;
     text-transform: uppercase;
@@ -78,6 +85,7 @@ body {
     display: block;
     padding: 14px;
 }
+
 #navigation .container li a:hover {
     background: #eeeeee;
     color: #ffffff;
