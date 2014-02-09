@@ -27,46 +27,6 @@ class HttpFacadeTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function shouldReturnRequest()
-    {
-        $request = new Request();
-        $this->container->get('request')->willReturn($request);
-
-        $output = $this->http->getRequest();
-
-        $this->assertEquals($request, $output);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnSession()
-    {
-        $session = new Session();
-        $this->container->get('session')->willReturn($session);
-
-        $output = $this->http->getSession();
-
-        $this->assertEquals($output, $session);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnRouter()
-    {
-        $container = $this->prophesize('Symfony\Component\DependencyInjection\ContainerInterface');
-        $router = new Router($container->reveal(), 'someResource');
-        $this->container->get('router')->willReturn($router);
-
-        $output = $this->http->getRouter();
-
-        $this->assertEquals($output, $router);
-    }
-
-    /**
-     * @test
-     */
     public function shouldReturnRequestParam()
     {
         $request = $this->prophesize('Symfony\Component\HttpFoundation\Request');
@@ -116,6 +76,7 @@ class HttpFacadeTest extends ProphecyTestCase
 
         $this->assertEquals('Symfony\Component\HttpFoundation\RedirectResponse', get_class($output));
         $this->assertEquals($url, $output->getTargetUrl());
+        $this->assertEquals(302, $output->getStatusCode());
     }
 
     /**
@@ -129,6 +90,24 @@ class HttpFacadeTest extends ProphecyTestCase
         $output = $this->http->redirect('some_route_name', array('foo' => 'bar'));
 
         $this->assertEquals('http://some.url/some/route?foo=bar', $output->getTargetUrl());
+        $this->assertEquals(302, $output->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnRedirectResponseToReferer()
+    {
+        $url = 'http://some.url/blah';
+        $request = new Request();
+        $request->headers->add(array('referer' => $url));
+        $this->container->get('request')->willReturn($request);
+
+        $output = $this->http->redirectToReferer();
+
+        $this->assertEquals('Symfony\Component\HttpFoundation\RedirectResponse', get_class($output));
+        $this->assertEquals(302, $output->getStatusCode());
+        $this->assertEquals($url, $output->getTargetUrl());
     }
 
     protected function createRouterMock($route, array $params, $outputUrl)

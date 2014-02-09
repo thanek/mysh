@@ -33,9 +33,9 @@ class CartControllerTest extends ProphecyTestCase
      */
     public function shouldAddItem()
     {
-        $response = $this->expectRedirectResponse('http://blah.bla');
-        $this->expectFlashMessage('notice', 'Item added to cart');
         $this->cartService->addItem(123)->shouldBeCalled();
+        $this->expectFlashMessage('notice', 'Item added to cart');
+        $response = $this->expectRedirectToReferer();
 
         $output = $this->cartController->addItemAction(123);
 
@@ -60,9 +60,9 @@ class CartControllerTest extends ProphecyTestCase
      */
     public function shouldDisposeCart()
     {
-        $response = $this->expectRedirectResponse('http://blah.bla');
-        $this->expectFlashMessage('notice', 'Cart has been disposed');
         $this->cartService->disposeCart()->shouldBeCalled();
+        $this->expectFlashMessage('notice', 'Cart has been disposed');
+        $response = $this->expectRedirectToReferer();
 
         $output = $this->cartController->disposeAction();
 
@@ -75,14 +75,14 @@ class CartControllerTest extends ProphecyTestCase
     }
 
     /**
-     * @param string $url
      * @param int $status
      * @return RedirectResponse
      */
-    protected function expectRedirectResponse($url, $status = 302)
+    protected function expectRedirectToReferer($status=302)
     {
-        $response = new RedirectResponse($url, $status);
-        $this->http->redirect('products_all')->willReturn($response);
+        $this->http->getReferer()->willReturn('http://blah.bla');
+        $response = new RedirectResponse('http://blah.bla', $status);
+        $this->http->redirectToReferer()->willReturn($response);
         return $response;
     }
-} 
+}

@@ -19,30 +19,6 @@ class HttpFacade
     }
 
     /**
-     * @return Request
-     */
-    public function getRequest()
-    {
-        return $this->container->get('request');
-    }
-
-    /**
-     * @return Session
-     */
-    public function getSession()
-    {
-        return $this->container->get('session');
-    }
-
-    /**
-     * @return Router
-     */
-    public function getRouter()
-    {
-        return $this->container->get('router');
-    }
-
-    /**
      * @param string $key
      * @param null $default
      * @return mixed
@@ -74,6 +50,24 @@ class HttpFacade
     }
 
     /**
+     * @param int $status
+     * @return RedirectResponse
+     */
+    public function redirectToReferer($status = 302)
+    {
+        $url = $this->getReferer();
+        return new RedirectResponse($url, $status);
+    }
+
+    /**
+     * @return string
+     */
+    public function getReferer()
+    {
+        return $this->getRequest()->headers->get('referer');
+    }
+
+    /**
      * @param $url
      * @param int $status
      * @return RedirectResponse
@@ -93,4 +87,28 @@ class HttpFacade
     {
         return $this->getRouter()->generate($route, $parameters, $referenceType);
     }
-} 
+
+    /**
+     * @return Request
+     */
+    protected function getRequest()
+    {
+        return $this->container->get('request');
+    }
+
+    /**
+     * @return Session
+     */
+    protected function getSession()
+    {
+        return $this->container->get('session');
+    }
+
+    /**
+     * @return Router
+     */
+    protected function getRouter()
+    {
+        return $this->container->get('router');
+    }
+}
