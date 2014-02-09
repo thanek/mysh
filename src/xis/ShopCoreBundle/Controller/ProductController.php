@@ -27,19 +27,19 @@ class ProductController
 
     /**
      * @Route("/products_all",name="products_all")
-     * @Template()
+     * @Template("xisShopCoreBundle:Product:listing.html.twig")
      */
     public function allAction()
     {
         $page = $this->getQueryParameter('page', 1);
         $pager = $this->productRepository->getProducts(60, $page);
 
-        return array('pager' => $pager);
+        return array('pager' => $pager, 'title' => 'All products');
     }
 
     /**
      * @Route("/{slug},c,{id}",name="category")
-     * @Template("xisShopCoreBundle:Product:all.html.twig")
+     * @Template("xisShopCoreBundle:Product:listing.html.twig")
      */
     public function browseCategoryAction($slug, $id)
     {
@@ -51,10 +51,12 @@ class ProductController
         }
 
         $pager = $this->productRepository->getProductsFromCategory($category, 60, $page);
-        return array('pager' => $pager);
+        return array('pager' => $pager, 'title' => $category->getName());
     }
 
     /**
+     * @param string $key
+     * @param mixed|null $defaultValue
      * @return mixed
      */
     protected function getQueryParameter($key, $defaultValue = null)

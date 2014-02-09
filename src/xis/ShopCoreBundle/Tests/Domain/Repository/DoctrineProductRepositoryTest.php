@@ -59,7 +59,7 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
         $category = new Category();
         $category->setLft(234);
         $category->setRgt(345);
-        
+
         $queryBuilder = $this->createAllProductsQueryBuilderMock();
         $queryBuilder->join('p.category', 'c')->willReturn($queryBuilder);
         $queryBuilder->andWhere('c.lft>=:lft')->willReturn($queryBuilder);

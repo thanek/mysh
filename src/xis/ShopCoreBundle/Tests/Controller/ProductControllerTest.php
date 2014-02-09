@@ -47,6 +47,7 @@ class ProductControllerTest extends ProphecyTestCase
         $output = $this->controller->allAction();
 
         $this->assertEquals($pager->reveal(), $output['pager']);
+        $this->assertEquals('All products', $output['title']);
     }
 
     /**
@@ -58,6 +59,7 @@ class ProductControllerTest extends ProphecyTestCase
         $this->http->getRequestParam('page', 1)->willReturn($pageNum);
 
         $category = new Category();
+        $category->setName('Some category');
         $this->categoryRepo->find(123)->willReturn($category);
 
         $pager = $this->prophesize('PagerfantaDoctrinePager');
@@ -66,6 +68,7 @@ class ProductControllerTest extends ProphecyTestCase
         $output = $this->controller->browseCategoryAction('foo_bar_baz', 123);
 
         $this->assertEquals($pager->reveal(), $output['pager']);
+        $this->assertEquals('Some category', $output['title']);
     }
 
     /**

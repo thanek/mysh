@@ -1,9 +1,9 @@
 {% extends "xisShopCoreBundle::layout.html.twig" %}
 
-{% block title %}xisShopCoreBundle:Product:all{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the Product:all page</h1>
+    <h1>{{ title }}</h1>
     <ul>
         {% for product in pager.results %}
             <li class="single_product">
