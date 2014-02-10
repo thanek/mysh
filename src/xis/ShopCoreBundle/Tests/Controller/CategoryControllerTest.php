@@ -17,7 +17,7 @@ class CategoryControllerTest extends ProphecyTestCase
             new Category()
         );
 
-        $categoryRepo = $this->prophesize('xis\Shop\Repository\DoctrineCategoryRepository');
+        $categoryRepo = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $categoryRepo->getMainCategories()->willReturn($categories);
 
         $controller = new CategoryController($categoryRepo->reveal());

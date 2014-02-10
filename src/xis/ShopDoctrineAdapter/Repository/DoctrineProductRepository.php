@@ -1,5 +1,5 @@
 <?php
-namespace xis\Shop\Repository;
+namespace xis\ShopDoctrineAdapter\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr\Join;
@@ -8,6 +8,7 @@ use xis\Shop\Entity\Category;
 use xis\Shop\Entity\Product;
 use xis\Shop\Repository\Pager\Pager;
 use xis\Shop\Repository\Pager\PagerFactory;
+use xis\Shop\Repository\ProductRepository;
 
 class DoctrineProductRepository implements ProductRepository
 {

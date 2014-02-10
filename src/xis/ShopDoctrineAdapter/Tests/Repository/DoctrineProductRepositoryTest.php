@@ -1,13 +1,12 @@
 <?php
-namespace xis\Shop\Tests\Repository;
+namespace xis\ShopDoctrineAdapter\Tests\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use xis\Shop\Entity\Category;
 use xis\Shop\Entity\Product;
-use xis\Shop\Repository\DoctrineProductRepository;
-use xis\Shop\Repository\ProductRepository;
+use xis\ShopDoctrineAdapter\Repository\DoctrineProductRepository;
 
 class DoctrineProductRepositoryTest extends ProphecyTestCase
 {

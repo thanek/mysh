@@ -25,8 +25,8 @@ class ProductControllerTest extends ProphecyTestCase
     {
         parent::setup();
 
-        $this->productRepo = $this->prophesize('xis\Shop\Repository\DoctrineProductRepository');
-        $this->categoryRepo = $this->prophesize('xis\Shop\Repository\DoctrineCategoryRepository');
+        $this->productRepo = $this->prophesize('xis\Shop\Repository\ProductRepository');
+        $this->categoryRepo = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $this->http = $this->prophesize('xis\ShopCoreBundle\Controller\HttpFacade');
 
         $this->controller = new ProductController(

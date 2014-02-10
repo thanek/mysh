@@ -1,13 +1,11 @@
 <?php
-namespace xis\Shop\Tests\Repository;
+namespace xis\ShopDoctrineAdapter\Tests\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use xis\Shop\Entity\Category;
-use xis\Shop\Repository\CategoryRepository;
-use xis\Shop\Repository\DoctrineCategoryRepository;
-use xis\Shop\Repository\Pager\PagerFactory;
+use xis\ShopDoctrineAdapter\Repository\DoctrineCategoryRepository;
 
 class DoctrineCategoryRepositoryTest extends ProphecyTestCase
 {

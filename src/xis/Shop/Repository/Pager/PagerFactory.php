@@ -4,8 +4,8 @@ namespace xis\Shop\Repository\Pager;
 interface PagerFactory
 {
     /**
-     * @param $queryBuilder
+     * @param $arg
      * @return Pager
      */
-    function getPager($queryBuilder);
+    function getPager($arg);
 } 
