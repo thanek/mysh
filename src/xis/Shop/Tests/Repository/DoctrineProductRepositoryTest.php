@@ -110,7 +110,7 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
     {
         $queryBuilder = $this->prophesize('Doctrine\ORM\QueryBuilder');
         $queryBuilder->select('p')->willReturn($queryBuilder);
-        $queryBuilder->from('xisShopCoreBundle:Product', 'p')->willReturn($queryBuilder);
+        $queryBuilder->from('xisShop:Product', 'p')->willReturn($queryBuilder);
         $queryBuilder->where('p.status=1')->willReturn($queryBuilder);
         $queryBuilder->andWhere('p.quantity>0')->willReturn($queryBuilder);
         return $queryBuilder;

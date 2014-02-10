@@ -64,8 +64,12 @@ doctrine:
             default:
                 connection: default
                 mappings:
-                    xisShopCoreBundle:
+                    xisShop:
+                        type: xml
+                        is_bundle: false
+                        dir: %kernel.root_dir%/../src/xis/ShopDoctrineAdapter/Resources/mappings
                         prefix: xis\Shop\Entity
+                        alias: xisShop
 
 # Swiftmailer Configuration
 swiftmailer:

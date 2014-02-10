@@ -39,7 +39,7 @@ class DoctrineCategoryRepositoryTest extends ProphecyTestCase
         $query->getResult()->willReturn($mainCategories);
         $queryBuilder = $this->prophesize('Doctrine\ORM\QueryBuilder');
         $queryBuilder->select('c')->willReturn($queryBuilder);
-        $queryBuilder->from('xisShopCoreBundle:Category', 'c')->willReturn($queryBuilder);
+        $queryBuilder->from('xisShop:Category', 'c')->willReturn($queryBuilder);
         $queryBuilder->where('c.level=1')->willReturn($queryBuilder);
         $queryBuilder->addOrderBy('c.sortOrder', 'asc')->willReturn($queryBuilder);
         $queryBuilder->getQuery()->willReturn($query);
@@ -78,7 +78,7 @@ class DoctrineCategoryRepositoryTest extends ProphecyTestCase
     {
         $queryBuilder = $this->prophesize('Doctrine\ORM\QueryBuilder');
         $queryBuilder->select('c')->willReturn($queryBuilder);
-        $queryBuilder->from('xisShopCoreBundle:Category', 'c')->willReturn($queryBuilder);
+        $queryBuilder->from('xisShop:Category', 'c')->willReturn($queryBuilder);
         return $queryBuilder;
     }
 }

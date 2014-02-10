@@ -49,6 +49,6 @@ class DoctrineCategoryRepository implements CategoryRepository
     {
         return $this->entityManager->createQueryBuilder()
             ->select('c')
-            ->from('xisShopCoreBundle:Category', 'c');
+            ->from('xisShop:Category', 'c');
     }
 }

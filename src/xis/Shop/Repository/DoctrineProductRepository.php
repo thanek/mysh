@@ -42,7 +42,7 @@ class DoctrineProductRepository implements ProductRepository
     {
         $queryBuilder = $this->entityManager->createQueryBuilder()
             ->select('p')
-            ->from('xisShopCoreBundle:Product', 'p')
+            ->from('xisShop:Product', 'p')
             ->where('p.status=1')
             ->andWhere('p.quantity>0');
         return $queryBuilder;
