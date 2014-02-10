@@ -5,10 +5,10 @@ use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use xis\ShopCoreBundle\Controller\HttpFacade;
 use xis\ShopCoreBundle\Controller\ProductController;
-use xis\ShopCoreBundle\Domain\Entity\Category;
-use xis\ShopCoreBundle\Domain\Entity\Product;
-use xis\ShopCoreBundle\Domain\Repository\CategoryRepository;
-use xis\ShopCoreBundle\Domain\Repository\ProductRepository;
+use xis\Shop\Entity\Category;
+use xis\Shop\Entity\Product;
+use xis\Shop\Repository\CategoryRepository;
+use xis\Shop\Repository\ProductRepository;
 
 class ProductControllerTest extends ProphecyTestCase
 {
@@ -25,8 +25,8 @@ class ProductControllerTest extends ProphecyTestCase
     {
         parent::setup();
 
-        $this->productRepo = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository');
-        $this->categoryRepo = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\DoctrineCategoryRepository');
+        $this->productRepo = $this->prophesize('xis\Shop\Repository\DoctrineProductRepository');
+        $this->categoryRepo = $this->prophesize('xis\Shop\Repository\DoctrineCategoryRepository');
         $this->http = $this->prophesize('xis\ShopCoreBundle\Controller\HttpFacade');
 
         $this->controller = new ProductController(

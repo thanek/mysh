@@ -3,7 +3,7 @@ namespace xis\ShopCoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use xis\ShopCoreBundle\Domain\Cart\CartService;
+use xis\Shop\Cart\CartService;
 
 /**
  * @Route(service="xis.shop.controller.cart")

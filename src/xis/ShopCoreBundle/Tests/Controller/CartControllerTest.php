@@ -6,8 +6,8 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use xis\ShopCoreBundle\Controller\CartController;
 use xis\ShopCoreBundle\Controller\HttpFacade;
-use xis\ShopCoreBundle\Domain\Cart\CartService;
-use xis\ShopCoreBundle\Domain\Entity\Cart;
+use xis\Shop\Cart\CartService;
+use xis\Shop\Entity\Cart;
 
 class CartControllerTest extends ProphecyTestCase
 {
@@ -22,7 +22,7 @@ class CartControllerTest extends ProphecyTestCase
     {
         parent::setup();
 
-        $this->cartService = $this->prophesize('xis\ShopCoreBundle\Domain\Cart\CartService');
+        $this->cartService = $this->prophesize('xis\Shop\Cart\CartService');
         $this->http = $this->prophesize('xis\ShopCoreBundle\Controller\HttpFacade');
 
         $this->cartController = new CartController($this->http->reveal(), $this->cartService->reveal());

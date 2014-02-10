@@ -4,20 +4,20 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="xis.shop.storage.session" class="xis\ShopCoreBundle\Domain\Storage\SessionStorage">
+        <service id="xis.shop.storage.session" class="xis\Shop\Storage\SessionStorage">
             <argument type="string">cart</argument>
             <argument type="service" id="session"/>
         </service>
 
-        <service id="xis.shop.storage.file" class="xis\ShopCoreBundle\Domain\Storage\FileStorage">
+        <service id="xis.shop.storage.file" class="xis\Shop\Storage\FileStorage">
             <argument type="string">/tmp/cart</argument>
         </service>
 
-        <service id="xis.shop.cart.provider" class="xis\ShopCoreBundle\Domain\Cart\CartProvider">
+        <service id="xis.shop.cart.provider" class="xis\Shop\Cart\CartProvider">
             <argument type="service" id="xis.shop.storage.session"/>
         </service>
 
-        <service id="xis.shop.service.cart" class="xis\ShopCoreBundle\Domain\Cart\CartService">
+        <service id="xis.shop.service.cart" class="xis\Shop\Cart\CartService">
             <argument type="service" id="xis.shop.cart.provider"/>
             <argument type="service" id="xis.shop.repository.product"/>
         </service>

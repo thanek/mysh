@@ -3,8 +3,8 @@ namespace xis\ShopCoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use xis\ShopCoreBundle\Domain\Repository\CategoryRepository;
-use xis\ShopCoreBundle\Domain\Repository\ProductRepository;
+use xis\Shop\Repository\CategoryRepository;
+use xis\Shop\Repository\ProductRepository;
 
 /**
  * @Route(service="xis.shop.controller.product")

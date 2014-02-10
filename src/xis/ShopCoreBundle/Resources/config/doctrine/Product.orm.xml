@@ -3,8 +3,8 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity table="products"
-            repository-class="xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository"
-            name="xis\ShopCoreBundle\Domain\Entity\Product">
+            repository-class="xis\Shop\Repository\DoctrineProductRepository"
+            name="xis\Shop\Entity\Product">
         <id name="id" type="integer" column="products_id">
             <generator strategy="AUTO"/>
         </id>

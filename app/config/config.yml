@@ -65,7 +65,7 @@ doctrine:
                 connection: default
                 mappings:
                     xisShopCoreBundle:
-                        prefix: xis\ShopCoreBundle\Domain\Entity
+                        prefix: xis\Shop\Entity
 
 # Swiftmailer Configuration
 swiftmailer:

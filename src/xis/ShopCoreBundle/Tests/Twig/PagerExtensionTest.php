@@ -5,7 +5,7 @@ use Prophecy\Argument\Token\AnyValuesToken;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
-use xis\ShopCoreBundle\Domain\Repository\Pager\Pager;
+use xis\Shop\Repository\Pager\Pager;
 use xis\ShopCoreBundle\Twig\PagerExtension;
 
 class PagerExtensionTest extends ProphecyTestCase
@@ -210,7 +210,7 @@ class PagerExtensionTest extends ProphecyTestCase
      */
     protected function getPagerMock($count, $pageCount, $currentPage)
     {
-        $pager = $this->prophesize('xis\ShopCoreBundle\Domain\Repository\Pager\Pager');
+        $pager = $this->prophesize('xis\Shop\Repository\Pager\Pager');
         $pager->getCount()->willReturn($count);
         $pager->getPageCount()->willReturn($pageCount);
         $pager->getCurrentPage()->willReturn($currentPage);

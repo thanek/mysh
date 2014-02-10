@@ -4,12 +4,12 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="xis.shop.repository.product" class="xis\ShopCoreBundle\Domain\Repository\DoctrineProductRepository">
+        <service id="xis.shop.repository.product" class="xis\Shop\Repository\DoctrineProductRepository">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="xis.shop.pager.factory"/>
         </service>
 
-        <service id="xis.shop.repository.category" class="xis\ShopCoreBundle\Domain\Repository\DoctrineCategoryRepository">
+        <service id="xis.shop.repository.category" class="xis\Shop\Repository\DoctrineCategoryRepository">
             <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
     </services>
