@@ -1,8 +1,10 @@
 <?php
-namespace xis\Shop\Repository\Pager;
+namespace xis\ShopDoctrineAdapter\Repository\Pager;
 
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use xis\Shop\Repository\Pager\PagerFactory;
+use xis\Shop\Repository\Pager\PagerfantaPager;
 
 class DoctrinePagerFactory implements PagerFactory
 {

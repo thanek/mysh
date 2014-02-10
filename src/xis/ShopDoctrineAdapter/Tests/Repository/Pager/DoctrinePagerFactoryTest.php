@@ -1,8 +1,8 @@
 <?php
-namespace xis\Shop\Tests\Repository\Pager;
+namespace xis\ShopDoctrineAdapter\Tests\Repository\Pager;
 
 use Prophecy\PhpUnit\ProphecyTestCase;
-use xis\Shop\Repository\Pager\DoctrinePagerFactory;
+use xis\ShopDoctrineAdapter\Repository\Pager\DoctrinePagerFactory;
 
 class DoctrinePagerFactoryTest extends ProphecyTestCase
 {
