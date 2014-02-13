@@ -30,7 +30,8 @@ class PagerExtensionTest extends ProphecyTestCase
     {
         $functions = $this->pagerExtension->getFunctions();
 
-        $this->assertArrayHasKey('pager', $functions);
+        $this->assertCount(1, $functions);
+        $this->assertSame('pager', $functions[0]->getName());
     }
 
     /**
