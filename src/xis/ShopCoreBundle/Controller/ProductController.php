@@ -1,20 +1,18 @@
 <?php
 namespace xis\ShopCoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use xis\Shop\Repository\CategoryRepository;
 use xis\Shop\Repository\ProductRepository;
 
-/**
- * @Route(service="xis.shop.controller.product")
- */
 class ProductController
 {
     /** @var HttpFacade */
     private $http;
+
     /** @var ProductRepository */
     private $productRepository;
+
     /** @var CategoryRepository */
     private $categoryRepository;
 
@@ -26,7 +24,6 @@ class ProductController
     }
 
     /**
-     * @Route("/products_all",name="products_all")
      * @Template("xisShopCoreBundle:Product:listing.html.twig")
      */
     public function allAction()
@@ -38,7 +35,6 @@ class ProductController
     }
 
     /**
-     * @Route("/{slug},c,{id}",name="category")
      * @Template("xisShopCoreBundle:Product:listing.html.twig")
      */
     public function browseCategoryAction($slug, $id)

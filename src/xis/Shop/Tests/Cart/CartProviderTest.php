@@ -13,6 +13,7 @@ class CartProviderTest extends ProphecyTestCase
 {
     /** @var CartProvider */
     private $cartProvider;
+
     /** @var Storage */
     private $storage;
 

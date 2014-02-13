@@ -1,13 +1,9 @@
 <?php
 namespace xis\ShopCoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use xis\Shop\Repository\CategoryRepository;
 
-/**
- * @Route(service="xis.shop.controller.category")
- */
 class CategoryController
 {
     /** @var CategoryRepository */

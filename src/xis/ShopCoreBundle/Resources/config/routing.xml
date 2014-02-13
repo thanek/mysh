@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="homepage" path="/">
+        <default key="_controller">xisShopCoreBundle:Default:index</default>
+    </route>
+
+    <route id="products_all" path="/products_all">
+        <default key="_controller">xis.shop.controller.product:allAction</default>
+    </route>
+
+    <route id="category" path="/{slug},c,{id}">
+        <default key="_controller">xis.shop.controller.product:browseCategoryAction</default>
+        <default key="slug"></default>
+        <requirement key="id">\d+</requirement>
+    </route>
+
+    <route id="cart_add" path="/cart/add/{id}">
+        <default key="_controller">xis.shop.controller.cart:addItemAction</default>
+        <default key="id"></default>
+    </route>
+
+    <route id="cart_dispose" path="/cart/dispose">
+        <default key="_controller">xis.shop.controller.cart:disposeAction</default>
+    </route>
+</routes>

@@ -1,17 +1,14 @@
 <?php
 namespace xis\ShopCoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use xis\Shop\Cart\CartService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-/**
- * @Route(service="xis.shop.controller.cart")
- */
 class CartController
 {
     /** @var CartService */
     private $cartService;
+
     /** @var HttpFacade */
     protected $http;
 
@@ -19,17 +16,6 @@ class CartController
     {
         $this->http = $http;
         $this->cartService = $cartService;
-    }
-
-    /**
-     * @Route("/cart/add/{id}",name="cart_add")
-     */
-    public function addItemAction($id)
-    {
-        $this->cartService->addItem($id);
-
-        $this->http->addFlashMessage('notice', 'Item added to cart');
-        return $this->http->redirectToReferer();
     }
 
     /**
@@ -41,9 +27,14 @@ class CartController
         return array('cart' => $cart);
     }
 
-    /**
-     * @Route("/cart/dispose",name="cart_dispose")
-     */
+    public function addItemAction($id)
+    {
+        $this->cartService->addItem($id);
+
+        $this->http->addFlashMessage('notice', 'Item added to cart');
+        return $this->http->redirectToReferer();
+    }
+
     public function disposeAction()
     {
         $this->cartService->disposeCart();
