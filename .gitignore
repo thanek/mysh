@@ -1,6 +1,7 @@
 html
 .idea
 composer.lock
+*.sh
 
 /web/bundles/
 /app/bootstrap.php.cache

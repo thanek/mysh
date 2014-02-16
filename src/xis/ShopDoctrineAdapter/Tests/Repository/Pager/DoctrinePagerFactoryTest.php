@@ -17,7 +17,7 @@ class DoctrinePagerFactoryTest extends ProphecyTestCase
         $pager = $factory->getPager($queryBuilder->reveal());
 
         $this->assertEquals(
-            'xis\Shop\Repository\Pager\PagerfantaPager', get_class($pager)
+            'xis\ShopCoreBundle\Repository\Pager\PagerfantaPager', get_class($pager)
         );
     }
 } 

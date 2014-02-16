@@ -4,6 +4,7 @@ namespace xis\Shop\Repository;
 use xis\Shop\Entity\Category;
 use xis\Shop\Entity\Product;
 use xis\Shop\Repository\Pager\Pager;
+use xis\Shop\Search\Parameter\FilterSet;
 
 interface ProductRepository
 {
@@ -29,4 +30,12 @@ interface ProductRepository
      * @return Product
      */
     function find($id);
+
+    /**
+     * @param FilterSet $filterSet
+     * @param int $limit
+     * @param int $page
+     * @return Pager
+     */
+    function search(FilterSet $filterSet, $limit, $page = 1);
 }

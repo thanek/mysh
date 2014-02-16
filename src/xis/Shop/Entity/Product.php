@@ -1,8 +1,6 @@
 <?php
 namespace xis\Shop\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Product
  */

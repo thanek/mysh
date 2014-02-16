@@ -2,13 +2,16 @@
 namespace xis\ShopDoctrineAdapter\Repository;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use xis\Shop\Entity\Category;
 use xis\Shop\Entity\Product;
 use xis\Shop\Repository\Pager\Pager;
 use xis\Shop\Repository\Pager\PagerFactory;
 use xis\Shop\Repository\ProductRepository;
+use xis\Shop\Repository\Search\SearchQueryBuilder;
+use xis\Shop\Search\Filter\ProductFilter;
+use xis\Shop\Search\Parameter\FilterSet;
+use xis\ShopDoctrineAdapter\Repository\Search\DoctrineSearchQueryBuilder;
 
 class DoctrineProductRepository implements ProductRepository
 {
@@ -69,7 +72,7 @@ class DoctrineProductRepository implements ProductRepository
      * @param int $page
      * @return Pager
      */
-    function getProductsFromCategory(Category $category, $limit, $page = 0)
+    function getProductsFromCategory(Category $category, $limit, $page = 1)
     {
         $queryBuilder = $this->getAllProductsQueryBuilder()
             ->join('p.category', 'c')
@@ -84,14 +87,34 @@ class DoctrineProductRepository implements ProductRepository
 
     /**
      * @param $queryBuilder
-     * @param $limit
-     * @param $page
+     * @param int $limit
+     * @param int $page
      * @return Pager
      */
     protected function createPager($queryBuilder, $limit, $page)
     {
         $pager = $this->pagerFactory->getPager($queryBuilder);
         $pager->setCurrentPage($page)->setLimit($limit);
+        return $pager;
+    }
+
+    /**
+     * @param FilterSet $filterSet
+     * @param int $limit
+     * @param int $page
+     *
+     * @throws \Exception
+     * @return Pager
+     */
+    function search(FilterSet $filterSet, $limit, $page = 1)
+    {
+        $queryBuilder = $this->getAllProductsQueryBuilder();
+
+        /** @var SearchQueryBuilder $searchQueryBuilder */
+        $searchQueryBuilder = new DoctrineSearchQueryBuilder($queryBuilder);
+        $searchQueryBuilder->updateQueryBuilder($filterSet);
+
+        $pager = $this->createPager($queryBuilder, $limit, $page);
         return $pager;
     }
 }

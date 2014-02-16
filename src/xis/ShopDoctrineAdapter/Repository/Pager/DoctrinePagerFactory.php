@@ -3,8 +3,9 @@ namespace xis\ShopDoctrineAdapter\Repository\Pager;
 
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use xis\Shop\Repository\Pager\Pager;
 use xis\Shop\Repository\Pager\PagerFactory;
-use xis\Shop\Repository\Pager\PagerfantaPager;
+use xis\ShopCoreBundle\Repository\Pager\PagerfantaPager;
 
 class DoctrinePagerFactory implements PagerFactory
 {

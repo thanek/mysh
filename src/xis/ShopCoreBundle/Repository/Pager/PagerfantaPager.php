@@ -1,7 +1,8 @@
 <?php
-namespace xis\Shop\Repository\Pager;
+namespace xis\ShopCoreBundle\Repository\Pager;
 
 use Pagerfanta\Pagerfanta;
+use xis\Shop\Repository\Pager\Pager;
 
 class PagerfantaPager implements Pager
 {
