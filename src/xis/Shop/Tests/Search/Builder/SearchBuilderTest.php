@@ -5,11 +5,13 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use xis\Shop\Repository\CategoryRepository;
+use xis\Shop\Repository\Pager\Pager;
 use xis\Shop\Repository\ProductRepository;
 use xis\Shop\Search\Builder\SearchBuilder;
 use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 use xis\Shop\Search\Parameter\FilterSetBuilder;
 use xis\Shop\Search\Parameter\Provider\SearchParameterProvider;
+use xis\Shop\Search\Service\SearchService;
 
 class SearchBuilderTest extends ProphecyTestCase
 {
@@ -35,49 +37,21 @@ class SearchBuilderTest extends ProphecyTestCase
     /**
      * @test
      */
-    public function shouldCreateParametersConverterWithGivenProvider()
-    {
-        $paramsProvider = $this->mockParametersProvider();
-        $paramsProvider->getParamsConverter($this->categoryRepository)->shouldBeCalled();
-
-        $output = $this->searchBuilder->with($paramsProvider->reveal());
-
-        $this->assertNotNull($output);
-        $this->assertSame($this->searchBuilder, $output);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldAcceptSearchService()
-    {
-        $searchService = $this->mockSearchService();
-
-        $output = $this->searchBuilder->using($searchService->reveal());
-
-        $this->assertNotNull($output);
-        $this->assertSame($this->searchBuilder, $output);
-    }
-
-    /**
-     * @test
-     */
     public function shouldGetResults()
     {
-        $converter = $this->mockParametersConverter();
         $pager = $this->mockPager();
-
+        $converter = $this->mockParametersConverter();
         $paramsProvider = $this->mockParametersProvider();
         $paramsProvider->getParamsConverter($this->categoryRepository)->willReturn($converter);
-        $this->searchBuilder->with($paramsProvider->reveal());
         $searchService = $this->mockSearchService();
-        $this->searchBuilder->using($searchService->reveal());
-        $searchService
-            ->getResults(
-                $this->filterSetBuilder->reveal(), $converter->reveal(), $this->productRepository->reveal(), 100, 1)
+        $searchService->getResults(
+            $this->filterSetBuilder->reveal(), $converter->reveal(), $this->productRepository->reveal(), 100, 1)
             ->willReturn($pager);
 
-        $output = $this->searchBuilder->getResults(100, 1);
+        $output = $this->searchBuilder
+            ->with($paramsProvider->reveal())
+            ->using($searchService->reveal())
+            ->getResults(100, 1);
 
         $this->assertSame($output, $pager->reveal());
     }
@@ -117,7 +91,7 @@ class SearchBuilderTest extends ProphecyTestCase
     }
 
     /**
-     * @return ObjectProphecy|SearchParameterProvider
+     * @return ObjectProphecy | SearchParameterProvider
      */
     protected function mockParametersProvider()
     {
@@ -125,7 +99,7 @@ class SearchBuilderTest extends ProphecyTestCase
     }
 
     /**
-     * @return ObjectProphecy|ParametersConverter
+     * @return ObjectProphecy | ParametersConverter
      */
     protected function mockParametersConverter()
     {
@@ -133,7 +107,7 @@ class SearchBuilderTest extends ProphecyTestCase
     }
 
     /**
-     * @return ObjectProphecy
+     * @return ObjectProphecy | SearchService
      */
     protected function mockSearchService()
     {
@@ -141,7 +115,7 @@ class SearchBuilderTest extends ProphecyTestCase
     }
 
     /**
-     * @return ObjectProphecy
+     * @return ObjectProphecy | Pager
      */
     protected function mockPager()
     {
