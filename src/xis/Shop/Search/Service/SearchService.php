@@ -17,47 +17,40 @@ abstract class SearchService
     private $productRepository;
 
     /**
+     * @param FilterSetBuilder $filterSetBuilder
      * @param ParametersConverter $paramsConverter
      * @param ProductRepository $repository
      * @param int $limit
      * @param int $page
      * @return Pager
      */
-    public function getResults(ParametersConverter $paramsConverter, ProductRepository $repository, $limit, $page = 1)
+    public function getResults(
+        FilterSetBuilder $filterSetBuilder, ParametersConverter $paramsConverter,
+        ProductRepository $repository, $limit, $page = 1)
     {
-        $filterSet = $this->createFilterSet($paramsConverter);
+        $filterSet = $this->createFilterSet($filterSetBuilder, $paramsConverter);
+
         return $repository->search($filterSet, $limit, $page);
     }
 
     /**
+     * @param FilterSetBuilder $filterSetBuilder
      * @param ParametersConverter $parametersConverter
      * @return FilterSet
      */
-    protected function createFilterSet(ParametersConverter $parametersConverter)
+    protected function createFilterSet(FilterSetBuilder $filterSetBuilder, ParametersConverter $parametersConverter)
     {
         $initialFilters = $this->getInitialFilters();
         $queryFilters = $parametersConverter->getFilters();
 
-        return $this->buildFilterSet($initialFilters, $queryFilters);
+        return $filterSetBuilder
+            ->addFilters($initialFilters)
+            ->addFilters($queryFilters)
+            ->getFilterSet();
     }
 
     /**
      * @return Filter[]
      */
     public abstract function getInitialFilters();
-
-    /**
-     * @param $initialFilters
-     * @param $queryFilters
-     * @return FilterSet
-     */
-    protected function buildFilterSet($initialFilters, $queryFilters)
-    {
-        $filterQueryBuilder = new FilterSetBuilder();
-
-        return $filterQueryBuilder
-            ->addFilters($initialFilters)
-            ->addFilters($queryFilters)
-            ->getFilterSet();
-    }
 }
