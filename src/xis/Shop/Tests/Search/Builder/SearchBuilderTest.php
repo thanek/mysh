@@ -10,7 +10,6 @@ use xis\Shop\Repository\ProductRepository;
 use xis\Shop\Search\Builder\SearchBuilder;
 use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 use xis\Shop\Search\Parameter\FilterSetBuilder;
-use xis\Shop\Search\Parameter\Provider\SearchParameterProvider;
 use xis\Shop\Search\Service\SearchService;
 
 class SearchBuilderTest extends ProphecyTestCase
@@ -85,14 +84,6 @@ class SearchBuilderTest extends ProphecyTestCase
 
         $this->searchBuilder->with($paramsConverter->reveal());
         $this->searchBuilder->getResults(100, 1);
-    }
-
-    /**
-     * @return ObjectProphecy | SearchParameterProvider
-     */
-    protected function mockParametersProvider()
-    {
-        return $this->prophesize('xis\Shop\Search\Parameter\Provider\SearchParameterProvider');
     }
 
     /**
