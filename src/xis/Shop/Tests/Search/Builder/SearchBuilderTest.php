@@ -41,15 +41,14 @@ class SearchBuilderTest extends ProphecyTestCase
     {
         $pager = $this->mockPager();
         $converter = $this->mockParametersConverter();
-        $paramsProvider = $this->mockParametersProvider();
-        $paramsProvider->getParamsConverter($this->categoryRepository)->willReturn($converter);
         $searchService = $this->mockSearchService();
         $searchService->getResults(
-            $this->filterSetBuilder->reveal(), $converter->reveal(), $this->productRepository->reveal(), 100, 1)
+            $this->filterSetBuilder->reveal(), $converter->reveal(),
+            $this->productRepository->reveal(), $this->categoryRepository->reveal(), 100, 1)
             ->willReturn($pager);
 
         $output = $this->searchBuilder
-            ->with($paramsProvider->reveal())
+            ->with($converter->reveal())
             ->using($searchService->reveal())
             ->getResults(100, 1);
 
@@ -69,7 +68,7 @@ class SearchBuilderTest extends ProphecyTestCase
      * @test
      * @expectedException \xis\Shop\Search\Builder\UninitializedBuilderException
      */
-    public function shouldNotSearchWhenNoParamsProviderSet()
+    public function shouldNotSearchWhenNoParamsConverterSet()
     {
         $searchService = $this->mockSearchService();
         $this->searchBuilder->using($searchService->reveal());
@@ -83,10 +82,8 @@ class SearchBuilderTest extends ProphecyTestCase
     public function shouldNotSearchWhenNoSearchServiceSet()
     {
         $paramsConverter = $this->mockParametersConverter();
-        $paramsProvider = $this->mockParametersProvider();
-        $paramsProvider->getParamsConverter($this->categoryRepository)->willReturn($paramsConverter);
 
-        $this->searchBuilder->with($paramsProvider->reveal());
+        $this->searchBuilder->with($paramsConverter->reveal());
         $this->searchBuilder->getResults(100, 1);
     }
 

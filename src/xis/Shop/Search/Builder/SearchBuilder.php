@@ -7,7 +7,6 @@ use xis\Shop\Repository\Pager\Pager;
 use xis\Shop\Repository\ProductRepository;
 use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 use xis\Shop\Search\Parameter\FilterSetBuilder;
-use xis\Shop\Search\Parameter\Provider\SearchParameterProvider;
 use xis\Shop\Search\Service\SearchService;
 
 class SearchBuilder
@@ -21,7 +20,7 @@ class SearchBuilder
     /** @var SearchService */
     private $searchService;
     /** @var FilterSetBuilder */
-    private $filterSerBuilder;
+    private $filterSetBuilder;
 
     /**
      * @param FilterSetBuilder $filterSetBuilder
@@ -38,12 +37,12 @@ class SearchBuilder
 
 
     /**
-     * @param SearchParameterProvider $provider
+     * @param ParametersConverter $converter
      * @return SearchBuilder
      */
-    public function with(SearchParameterProvider $provider)
+    public function with(ParametersConverter $converter)
     {
-        $this->converter = $provider->getParamsConverter($this->categoryRepository);
+        $this->converter = $converter;
         return $this;
     }
 
@@ -68,7 +67,7 @@ class SearchBuilder
         $this->checkSearchService();
 
         return $this->searchService->getResults(
-            $this->filterSetBuilder, $this->converter, $this->productRepository, $limit, $pageNum);
+            $this->filterSetBuilder, $this->converter, $this->productRepository, $this->categoryRepository, $limit, $pageNum);
     }
 
     /**

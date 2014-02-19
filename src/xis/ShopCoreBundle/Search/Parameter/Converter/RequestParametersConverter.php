@@ -16,8 +16,6 @@ class RequestParametersConverter implements ParametersConverter
 {
     /** @var Request */
     private $request;
-    /** @var CategoryRepository */
-    private $categoryRepository;
 
     public function __construct(Request $request)
     {
@@ -25,9 +23,10 @@ class RequestParametersConverter implements ParametersConverter
     }
 
     /**
+     * @param CategoryRepository $categoryRepository
      * @return Filter[]
      */
-    function getFilters()
+    function getFilters(CategoryRepository $categoryRepository)
     {
         $request = $this->request;
         $ret = array();
@@ -41,7 +40,7 @@ class RequestParametersConverter implements ParametersConverter
             $ret[] = new PriceToFilter($request->get('price_to'));
         }
         if ($request->get('category')) {
-            $category = $this->categoryRepository->find($request->get('category'));
+            $category = $categoryRepository->find($request->get('category'));
             $ret[] = new CategoryFilter($category);
         }
         return $ret;

@@ -32,9 +32,10 @@ class AllProductSearchTest extends ProphecyTestCase
         $queryFilters = array('filter1', 'filter2');
         $filterSet = new FilterSet();
 
+        $categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $pager = $this->prophesize('xis\Shop\Repository\Pager\Pager');
         $paramsConverter = $this->prophesize('xis\Shop\Search\Parameter\Converter\ParametersConverter');
-        $paramsConverter->getFilters()->willReturn($queryFilters);
+        $paramsConverter->getFilters($categoryRepository)->willReturn($queryFilters);
 
         $filterSetBuilder = $this->prophesize('xis\Shop\Search\Parameter\FilterSetBuilder');
         $filterSetBuilder->addFilters($queryFilters)->willReturn($filterSetBuilder);
@@ -45,7 +46,8 @@ class AllProductSearchTest extends ProphecyTestCase
         $productRepository->search($filterSet, 100, 1)->willReturn($pager);
 
         $output = $service->getResults(
-            $filterSetBuilder->reveal(), $paramsConverter->reveal(), $productRepository->reveal(), 100, 1);
+            $filterSetBuilder->reveal(), $paramsConverter->reveal(),
+            $productRepository->reveal(), $categoryRepository->reveal(), 100, 1);
 
         $this->assertSame($output, $pager->reveal());
     }

@@ -16,7 +16,7 @@ class ArrayParametersConverterTest extends ProphecyTestCase
         $categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $arrayParametersConverter = new ArrayParametersConverter($array, $categoryRepository->reveal());
 
-        $filters = $arrayParametersConverter->getFilters();
+        $filters = $arrayParametersConverter->getFilters($categoryRepository->reveal());
 
         $this->assertSame(2, count($filters));
     }
@@ -30,7 +30,7 @@ class ArrayParametersConverterTest extends ProphecyTestCase
         $categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $arrayParametersConverter = new ArrayParametersConverter($array, $categoryRepository->reveal());
 
-        $filters = $arrayParametersConverter->getFilters();
+        $filters = $arrayParametersConverter->getFilters($categoryRepository->reveal());
 
         $this->assertSame('xis\Shop\Search\Filter\KeywordFilter', get_class($filters[0]));
     }
@@ -44,7 +44,7 @@ class ArrayParametersConverterTest extends ProphecyTestCase
         $categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $arrayParametersConverter = new ArrayParametersConverter($array, $categoryRepository->reveal());
 
-        $filters = $arrayParametersConverter->getFilters();
+        $filters = $arrayParametersConverter->getFilters($categoryRepository->reveal());
 
         $this->assertSame('xis\Shop\Search\Filter\PriceFromFilter', get_class($filters[0]));
     }
@@ -58,7 +58,7 @@ class ArrayParametersConverterTest extends ProphecyTestCase
         $categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $arrayParametersConverter = new ArrayParametersConverter($array, $categoryRepository->reveal());
 
-        $filters = $arrayParametersConverter->getFilters();
+        $filters = $arrayParametersConverter->getFilters($categoryRepository->reveal());
 
         $this->assertSame('xis\Shop\Search\Filter\PriceToFilter', get_class($filters[0]));
     }
@@ -73,7 +73,7 @@ class ArrayParametersConverterTest extends ProphecyTestCase
         $categoryRepository->find(123)->willReturn(new Category());
         $arrayParametersConverter = new ArrayParametersConverter($array, $categoryRepository->reveal());
 
-        $filters = $arrayParametersConverter->getFilters();
+        $filters = $arrayParametersConverter->getFilters($categoryRepository->reveal());
 
         $this->assertSame('xis\Shop\Search\Filter\CategoryFilter', get_class($filters[0]));
     }

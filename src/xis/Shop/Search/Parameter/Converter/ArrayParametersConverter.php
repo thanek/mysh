@@ -7,25 +7,22 @@ use xis\Shop\Search\Filter\Filter;
 use xis\Shop\Search\Filter\KeywordFilter;
 use xis\Shop\Search\Filter\PriceFromFilter;
 use xis\Shop\Search\Filter\PriceToFilter;
-use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 
 class ArrayParametersConverter implements ParametersConverter
 {
     /** @var array */
     private $query;
-    /** @var CategoryRepository */
-    private $categoryRepository;
 
-    function __construct(array $query, CategoryRepository $categoryRepository)
+    function __construct(array $query)
     {
         $this->query = $query;
-        $this->categoryRepository = $categoryRepository;
     }
 
     /**
+     * @param CategoryRepository $categoryRepository
      * @return Filter[]
      */
-    function getFilters()
+    function getFilters(CategoryRepository $categoryRepository)
     {
         $query = $this->query;
         $ret = array();
@@ -39,7 +36,7 @@ class ArrayParametersConverter implements ParametersConverter
             $ret[] = new PriceToFilter($query['price_to']);
         }
         if (isset($query['category'])) {
-            $category = $this->categoryRepository->find($query['category']);
+            $category = $categoryRepository->find($query['category']);
             $ret[] = new CategoryFilter($category);
         }
         return $ret;

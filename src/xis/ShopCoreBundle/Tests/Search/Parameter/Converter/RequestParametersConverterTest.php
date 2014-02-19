@@ -24,7 +24,6 @@ class RequestParametersConverterTest extends ProphecyTestCase
         $this->request = $this->prophesize('Symfony\Component\HttpFoundation\Request');
         $this->categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
         $this->requestParameterConverter = new RequestParametersConverter($this->request->reveal());
-        $this->requestParameterConverter->setCategoryRepository($this->categoryRepository->reveal());
     }
 
     /**
@@ -35,7 +34,7 @@ class RequestParametersConverterTest extends ProphecyTestCase
         $this->request->get(Argument::any())->willReturn(null);
         $this->request->get('keyword')->willReturn('foo');
 
-        $filters = $this->requestParameterConverter->getFilters();
+        $filters = $this->requestParameterConverter->getFilters($this->categoryRepository->reveal());
 
         $this->assertSame(1, count($filters));
         $this->assertSame('xis\Shop\Search\Filter\KeywordFilter', get_class($filters[0]));
@@ -49,7 +48,7 @@ class RequestParametersConverterTest extends ProphecyTestCase
         $this->request->get(Argument::any())->willReturn(null);
         $this->request->get('price_from')->willReturn(123.20);
 
-        $filters = $this->requestParameterConverter->getFilters();
+        $filters = $this->requestParameterConverter->getFilters($this->categoryRepository->reveal());
 
         $this->assertSame(1, count($filters));
         $this->assertSame('xis\Shop\Search\Filter\PriceFromFilter', get_class($filters[0]));
@@ -63,7 +62,7 @@ class RequestParametersConverterTest extends ProphecyTestCase
         $this->request->get(Argument::any())->willReturn(null);
         $this->request->get('price_to')->willReturn(345.60);
 
-        $filters = $this->requestParameterConverter->getFilters();
+        $filters = $this->requestParameterConverter->getFilters($this->categoryRepository->reveal());
 
         $this->assertSame(1, count($filters));
         $this->assertSame('xis\Shop\Search\Filter\PriceToFilter', get_class($filters[0]));
@@ -79,7 +78,7 @@ class RequestParametersConverterTest extends ProphecyTestCase
         $this->request->get(Argument::any())->willReturn(null);
         $this->request->get('category')->willReturn(123);
 
-        $filters = $this->requestParameterConverter->getFilters();
+        $filters = $this->requestParameterConverter->getFilters($this->categoryRepository->reveal());
 
         $this->assertSame(1, count($filters));
         $this->assertSame('xis\Shop\Search\Filter\CategoryFilter', get_class($filters[0]));
@@ -94,7 +93,7 @@ class RequestParametersConverterTest extends ProphecyTestCase
         $this->request->get('keyword')->willReturn('foo');
         $this->request->get('price_to')->willReturn(123.23);
 
-        $filters = $this->requestParameterConverter->getFilters();
+        $filters = $this->requestParameterConverter->getFilters($this->categoryRepository->reveal());
 
         $this->assertSame(2, count($filters));
         $this->assertSame('xis\Shop\Search\Filter\KeywordFilter', get_class($filters[0]));

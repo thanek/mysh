@@ -11,26 +11,27 @@ use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 
 abstract class SearchService
 {
-    /** @var ParametersConverter */
-    private $paramsConverter;
-    /** @var ProductRepository */
-    private $productRepository;
+    /** @var  CategoryRepository */
+    private $categoryRepository;
 
     /**
      * @param FilterSetBuilder $filterSetBuilder
      * @param ParametersConverter $paramsConverter
-     * @param ProductRepository $repository
+     * @param ProductRepository $productRepository
+     * @param CategoryRepository $categoryRepository
      * @param int $limit
      * @param int $page
      * @return Pager
      */
     public function getResults(
         FilterSetBuilder $filterSetBuilder, ParametersConverter $paramsConverter,
-        ProductRepository $repository, $limit, $page = 1)
+        ProductRepository $productRepository, CategoryRepository $categoryRepository,
+        $limit, $page = 1)
     {
+        $this->categoryRepository = $categoryRepository;
         $filterSet = $this->createFilterSet($filterSetBuilder, $paramsConverter);
 
-        return $repository->search($filterSet, $limit, $page);
+        return $productRepository->search($filterSet, $limit, $page);
     }
 
     /**
@@ -41,7 +42,7 @@ abstract class SearchService
     protected function createFilterSet(FilterSetBuilder $filterSetBuilder, ParametersConverter $parametersConverter)
     {
         $initialFilters = $this->getInitialFilters();
-        $queryFilters = $parametersConverter->getFilters();
+        $queryFilters = $parametersConverter->getFilters($this->categoryRepository);
 
         return $filterSetBuilder
             ->addFilters($initialFilters)
