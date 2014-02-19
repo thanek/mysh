@@ -10,27 +10,21 @@ use xis\Shop\Repository\ProductRepository;
 use xis\Shop\Search\Builder\SearchBuilder;
 use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 use xis\Shop\Search\Parameter\FilterSetBuilder;
+use xis\Shop\Search\Service\SearchContext;
 use xis\Shop\Search\Service\SearchService;
 
 class SearchBuilderTest extends ProphecyTestCase
 {
     /** @var SearchBuilder */
     private $searchBuilder;
-    /** @var ProductRepository | ObjectProphecy */
-    private $productRepository;
-    /** @var CategoryRepository | ObjectProphecy */
-    private $categoryRepository;
-    /** @var FilterSetBuilder | ObjectProphecy */
-    private $filterSetBuilder;
+    /** @var SearchContext | ObjectProphecy */
+    private $context;
 
     public function setup()
     {
         parent::setup();
-        $this->productRepository = $this->prophesize('xis\Shop\Repository\ProductRepository');
-        $this->categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
-        $this->filterSetBuilder = $this->prophesize('xis\Shop\Search\Parameter\FilterSetBuilder');
-        $this->searchBuilder = new SearchBuilder(
-            $this->filterSetBuilder->reveal(), $this->productRepository->reveal(), $this->categoryRepository->reveal());
+        $this->context = $this->prophesize('xis\Shop\Search\Service\SearchContext');
+        $this->searchBuilder = new SearchBuilder($this->context->reveal());
     }
 
     /**
@@ -41,9 +35,7 @@ class SearchBuilderTest extends ProphecyTestCase
         $pager = $this->mockPager();
         $converter = $this->mockParametersConverter();
         $searchService = $this->mockSearchService();
-        $searchService->getResults(
-            $this->filterSetBuilder->reveal(), $converter->reveal(),
-            $this->productRepository->reveal(), $this->categoryRepository->reveal(), 100, 1)
+        $searchService->getResults($converter->reveal(), $this->context->reveal(), 100, 1)
             ->willReturn($pager);
 
         $output = $this->searchBuilder

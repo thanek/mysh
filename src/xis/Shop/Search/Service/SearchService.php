@@ -1,50 +1,42 @@
 <?php
 namespace xis\Shop\Search\Service;
 
-use xis\Shop\Repository\CategoryRepository;
 use xis\Shop\Repository\Pager\Pager;
-use xis\Shop\Repository\ProductRepository;
 use xis\Shop\Search\Filter\Filter;
 use xis\Shop\Search\Parameter\FilterSet;
-use xis\Shop\Search\Parameter\FilterSetBuilder;
 use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 
 abstract class SearchService
 {
-    /** @var  CategoryRepository */
-    private $categoryRepository;
+    /** @var SearchContext */
+    private $context;
 
     /**
-     * @param FilterSetBuilder $filterSetBuilder
-     * @param ParametersConverter $paramsConverter
-     * @param ProductRepository $productRepository
-     * @param CategoryRepository $categoryRepository
-     * @param int $limit
+     * @param ParametersConverter $parametersConverter
+     * @param SearchContext $context
+     * @param $limit
      * @param int $page
      * @return Pager
      */
-    public function getResults(
-        FilterSetBuilder $filterSetBuilder, ParametersConverter $paramsConverter,
-        ProductRepository $productRepository, CategoryRepository $categoryRepository,
-        $limit, $page = 1)
+    public function getResults(ParametersConverter $parametersConverter, SearchContext $context, $limit, $page = 1)
     {
-        $this->categoryRepository = $categoryRepository;
-        $filterSet = $this->createFilterSet($filterSetBuilder, $paramsConverter);
+        $this->context = $context;
+        $filterSet = $this->createFilterSet($parametersConverter, $context);
 
-        return $productRepository->search($filterSet, $limit, $page);
+        return $context->getProductRepository()->search($filterSet, $limit, $page);
     }
 
     /**
-     * @param FilterSetBuilder $filterSetBuilder
      * @param ParametersConverter $parametersConverter
+     * @param SearchContext $context
      * @return FilterSet
      */
-    protected function createFilterSet(FilterSetBuilder $filterSetBuilder, ParametersConverter $parametersConverter)
+    protected function createFilterSet(ParametersConverter $parametersConverter, SearchContext $context)
     {
         $initialFilters = $this->getInitialFilters();
-        $queryFilters = $parametersConverter->getFilters($this->categoryRepository);
+        $queryFilters = $parametersConverter->getFilters($context->getCategoryRepository());
 
-        return $filterSetBuilder
+        return $context->getFilterSetBuilder()
             ->addFilters($initialFilters)
             ->addFilters($queryFilters)
             ->getFilterSet();

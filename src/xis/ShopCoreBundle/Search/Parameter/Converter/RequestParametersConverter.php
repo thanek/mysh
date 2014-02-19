@@ -45,9 +45,4 @@ class RequestParametersConverter implements ParametersConverter
         }
         return $ret;
     }
-
-    public function setCategoryRepository(CategoryRepository $categoryRepository)
-    {
-        $this->categoryRepository = $categoryRepository;
-    }
 }
