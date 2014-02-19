@@ -10,4 +10,14 @@ interface Filter
      * @return null
      */
     function updateFilterSet(FilterSet $filter);
-} 
+
+    /**
+     * @return string
+     */
+    function getName();
+
+    /**
+     * @return string
+     */
+    function getValue();
+}

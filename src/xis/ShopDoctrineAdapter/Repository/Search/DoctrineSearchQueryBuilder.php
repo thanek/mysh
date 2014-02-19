@@ -19,7 +19,8 @@ class DoctrineSearchQueryBuilder extends SearchQueryBuilder
     {
         if ($query->getCategory()) {
             $category = $query->getCategory();
-            $this->queryBuilder->join('p.category', 'c')
+            $this->queryBuilder
+                ->join('p.category', 'c')
                 ->andWhere('c.lft>=:lft')
                 ->andWhere('c.rgt<=:rgt')
                 ->setParameter('lft', $category->getLft())
@@ -31,7 +32,8 @@ class DoctrineSearchQueryBuilder extends SearchQueryBuilder
     {
         if ($query->getPriceFrom()) {
             $priceFrom = $query->getPriceFrom();
-            $this->queryBuilder->andWhere('p.price>=:priceFrom')
+            $this->queryBuilder
+                ->andWhere('p.price>=:priceFrom')
                 ->setParameter('priceFrom', $priceFrom);
         }
     }
@@ -40,7 +42,8 @@ class DoctrineSearchQueryBuilder extends SearchQueryBuilder
     {
         if ($query->getPriceTo()) {
             $priceTo = $query->getPriceTo();
-            $this->queryBuilder->andWhere('p.price>=:priceTo')
+            $this->queryBuilder
+                ->andWhere('p.price<=:priceTo')
                 ->setParameter('priceTo', $priceTo);
         }
     }
@@ -49,7 +52,8 @@ class DoctrineSearchQueryBuilder extends SearchQueryBuilder
     {
         if ($query->getKeyword()) {
             $keyword = $query->getKeyword();
-            $this->queryBuilder->andWhere('p.name=:keyword')
+            $this->queryBuilder
+                ->andWhere('p.name=:keyword')
                 ->setParameter('keyword', $keyword);
         }
     }

@@ -91,7 +91,7 @@ class HttpFacade
     /**
      * @return Request
      */
-    protected function getRequest()
+    public function getRequest()
     {
         return $this->container->get('request');
     }

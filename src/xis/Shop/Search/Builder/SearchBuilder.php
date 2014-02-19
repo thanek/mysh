@@ -4,6 +4,7 @@ namespace xis\Shop\Search\Builder;
 use xis\Shop\Repository\CategoryRepository;
 use xis\Shop\Repository\Pager\Pager;
 use xis\Shop\Repository\ProductRepository;
+use xis\Shop\Search\Filter\Filter;
 use xis\Shop\Search\Parameter\Converter\ParametersConverter;
 use xis\Shop\Search\Parameter\FilterSetBuilder;
 use xis\Shop\Search\Service\SearchContext;
@@ -54,10 +55,26 @@ class SearchBuilder
      */
     public function getResults($limit, $pageNum = 1)
     {
+        return $this->get()->getResults($this->converter, $this->context, $limit, $pageNum);
+    }
+
+    /**
+     * @return Filter[]
+     */
+    public function getFilters()
+    {
+        return $this->get()->getQueryFilters();
+    }
+
+    /**
+     * @return SearchService
+     */
+    private function get()
+    {
         $this->checkParamsConverter();
         $this->checkSearchService();
 
-        return $this->searchService->getResults($this->converter, $this->context, $limit, $pageNum);
+        return $this->searchService;
     }
 
     /**

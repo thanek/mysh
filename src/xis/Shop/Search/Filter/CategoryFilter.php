@@ -22,4 +22,20 @@ class CategoryFilter implements Filter
     {
         $filter->setCategory($this->category);
     }
+
+    /**
+     * @return string
+     */
+    function getName()
+    {
+        return 'category';
+    }
+
+    /**
+     * @return string
+     */
+    function getValue()
+    {
+        return $this->category->getName();
+    }
 }

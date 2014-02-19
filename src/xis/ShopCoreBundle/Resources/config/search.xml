@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="xis.shop.search.filterSetBuilder" class="xis\Shop\Search\Parameter\FilterSetBuilder"/>
+
+        <service id="xis.shop.search.context" class="xis\Shop\Search\Service\SearchContext">
+            <argument type="service" id="xis.shop.search.filterSetBuilder"/>
+            <argument type="service" id="xis.shop.repository.product"/>
+            <argument type="service" id="xis.shop.repository.category"/>
+        </service>
+
+        <service id="xis.shop.search.builder" class="xis\Shop\Search\Builder\SearchBuilder">
+            <argument type="service" id="xis.shop.search.context"/>
+        </service>
+    </services>
+
+</container>

@@ -10,6 +10,8 @@ abstract class SearchService
 {
     /** @var SearchContext */
     private $context;
+    /** @var ParametersConverter */
+    private $parametersConverter;
 
     /**
      * @param ParametersConverter $parametersConverter
@@ -21,25 +23,33 @@ abstract class SearchService
     public function getResults(ParametersConverter $parametersConverter, SearchContext $context, $limit, $page = 1)
     {
         $this->context = $context;
-        $filterSet = $this->createFilterSet($parametersConverter, $context);
+        $this->parametersConverter = $parametersConverter;
+
+        $filterSet = $this->createFilterSet();
 
         return $context->getProductRepository()->search($filterSet, $limit, $page);
     }
 
     /**
-     * @param ParametersConverter $parametersConverter
-     * @param SearchContext $context
      * @return FilterSet
      */
-    protected function createFilterSet(ParametersConverter $parametersConverter, SearchContext $context)
+    protected function createFilterSet()
     {
         $initialFilters = $this->getInitialFilters();
-        $queryFilters = $parametersConverter->getFilters($context->getCategoryRepository());
+        $queryFilters = $this->getQueryFilters();
 
-        return $context->getFilterSetBuilder()
+        return $this->context->getFilterSetBuilder()
             ->addFilters($initialFilters)
             ->addFilters($queryFilters)
             ->getFilterSet();
+    }
+
+    /**
+     * @return Filter[]
+     */
+    public function getQueryFilters()
+    {
+        return $this->parametersConverter->getFilters($this->context->getCategoryRepository());
     }
 
     /**

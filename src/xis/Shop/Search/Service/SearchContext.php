@@ -14,6 +14,14 @@ class SearchContext
     /** @var FilterSetBuilder */
     private $filterSetBuilder;
 
+    function __construct(
+        FilterSetBuilder $filterSetBuilder, ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    {
+        $this->filterSetBuilder = $filterSetBuilder;
+        $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
+    }
+
     /**
      * @return \xis\Shop\Repository\ProductRepository
      */

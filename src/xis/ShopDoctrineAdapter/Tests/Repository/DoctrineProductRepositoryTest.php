@@ -87,7 +87,7 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
         $query->getSingleResult()->willReturn($product);
 
         $queryBuilder = $this->mockAllProductsQueryBuilder();
-        $queryBuilder->andWhere('p.id = :id')->willReturn($queryBuilder);
+        $queryBuilder->andWhere('p.id=:id')->willReturn($queryBuilder);
         $queryBuilder->setParameter('id', 123)->willReturn($queryBuilder);
         $queryBuilder->getQuery()->willReturn($query);
 
@@ -133,7 +133,7 @@ class DoctrineProductRepositoryTest extends ProphecyTestCase
         $queryBuilder = $this->mockAllProductsQueryBuilder();
         $queryBuilder->andWhere('p.price>=:priceFrom')->willReturn($queryBuilder);
         $queryBuilder->setParameter('priceFrom', 3)->willReturn($queryBuilder);
-        $queryBuilder->andWhere('p.price>=:priceTo')->willReturn($queryBuilder);
+        $queryBuilder->andWhere('p.price<=:priceTo')->willReturn($queryBuilder);
         $queryBuilder->setParameter('priceTo', 10)->willReturn($queryBuilder);
         $queryBuilder->join('p.category', 'c')->willReturn($queryBuilder);
         $queryBuilder->andWhere('c.lft>=:lft')->willReturn($queryBuilder);

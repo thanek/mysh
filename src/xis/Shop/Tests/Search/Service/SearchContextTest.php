@@ -1,23 +1,25 @@
 <?php
 namespace xis\Shop\Tests\Search\Service;
 
-use xis\Shop\Search\Parameter\FilterSetBuilder;
+use Prophecy\PhpUnit\ProphecyTestCase;
 use xis\Shop\Search\Service\SearchContext;
-use xis\Shop\Tests\Entity\AbstractEntityTestCase;
-use xis\ShopDoctrineAdapter\Repository\DoctrineCategoryRepository;
 
-class SearchContextTest extends AbstractEntityTestCase
+
+class SearchContextTest extends ProphecyTestCase
 {
-    public function setup()
-    {
-        parent::setup();
-        $this->entity = new SearchContext();
-    }
-
     public function testGettersAndSetters()
     {
-        $this->checkGetterAndSetter('categoryRepository', null);
-        $this->checkGetterAndSetter('productRepository', null);
-        $this->checkGetterAndSetter('filterSetBuilder', new FilterSetBuilder());
+        $filterSetBuilder = $this->prophesize('xis\Shop\Search\Parameter\FilterSetBuilder');
+        $productRepository = $this->prophesize('xis\Shop\Repository\ProductRepository');
+        $categoryRepository = $this->prophesize('xis\Shop\Repository\CategoryRepository');
+
+        $context = new SearchContext(
+            $filterSetBuilder->reveal(),
+            $productRepository->reveal(),
+            $categoryRepository->reveal());
+
+        $this->assertSame($context->getFilterSetBuilder(), $filterSetBuilder->reveal());
+        $this->assertSame($context->getCategoryRepository(), $categoryRepository->reveal());
+        $this->assertSame($context->getProductRepository(), $productRepository->reveal());
     }
 } 

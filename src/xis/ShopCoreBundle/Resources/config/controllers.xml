@@ -12,6 +12,7 @@
             <argument type="service" id="xis.shop.controller.http.facade"/>
             <argument type="service" id="xis.shop.repository.product"/>
             <argument type="service" id="xis.shop.repository.category"/>
+            <argument type="service" id="xis.shop.search.builder"/>
         </service>
 
         <service id="xis.shop.controller.category" class="xis\ShopCoreBundle\Controller\CategoryController">

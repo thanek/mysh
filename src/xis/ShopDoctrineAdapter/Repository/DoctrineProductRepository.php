@@ -59,7 +59,7 @@ class DoctrineProductRepository implements ProductRepository
     function find($id)
     {
         $ret = $this->getAllProductsQueryBuilder()
-            ->andWhere('p.id = :id')
+            ->andWhere('p.id=:id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getSingleResult();

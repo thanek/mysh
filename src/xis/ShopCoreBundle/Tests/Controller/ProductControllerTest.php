@@ -1,8 +1,11 @@
 <?php
 namespace xis\ShopCoreBundle\Tests\Controller;
 
+use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTestCase;
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\HttpFoundation\Request;
+use xis\Shop\Search\Builder\SearchBuilder;
 use xis\ShopCoreBundle\Controller\HttpFacade;
 use xis\ShopCoreBundle\Controller\ProductController;
 use xis\Shop\Entity\Category;
@@ -18,6 +21,8 @@ class ProductControllerTest extends ProphecyTestCase
     private $categoryRepo;
     /** @var  HttpFacade|ObjectProphecy */
     private $http;
+    /** @var SearchBuilder|ObjectProphecy */
+    private $searchBuilder;
     /** @var ProductController */
     private $controller;
 
@@ -25,12 +30,14 @@ class ProductControllerTest extends ProphecyTestCase
     {
         parent::setup();
 
+        $this->http = $this->prophesize('xis\ShopCoreBundle\Controller\HttpFacade');
         $this->productRepo = $this->prophesize('xis\Shop\Repository\ProductRepository');
         $this->categoryRepo = $this->prophesize('xis\Shop\Repository\CategoryRepository');
-        $this->http = $this->prophesize('xis\ShopCoreBundle\Controller\HttpFacade');
+        $this->searchBuilder = $this->prophesize('xis\Shop\Search\Builder\SearchBuilder');
 
         $this->controller = new ProductController(
-            $this->http->reveal(), $this->productRepo->reveal(), $this->categoryRepo->reveal());
+            $this->http->reveal(), $this->productRepo->reveal(),
+            $this->categoryRepo->reveal(), $this->searchBuilder->reveal());
     }
 
     /**
@@ -39,10 +46,15 @@ class ProductControllerTest extends ProphecyTestCase
     public function shouldRetrieveAllProductsPager()
     {
         $pageNum = 1;
+        $request = $this->prophesize('Symfony\Component\HttpFoundation\Request');
+        $this->http->getRequest()->willReturn($request);
         $this->http->getRequestParam('page', 1)->willReturn($pageNum);
 
         $pager = $this->prophesize('PagerfantaDoctrinePager');
-        $this->productRepo->getProducts(60, $pageNum)->willReturn($pager);
+        $this->searchBuilder->with(Argument::any())->willReturn($this->searchBuilder);
+        $this->searchBuilder->using(Argument::any())->willReturn($this->searchBuilder);
+        $this->searchBuilder->getFilters()->willReturn(array());
+        $this->searchBuilder->getResults(60, $pageNum)->willReturn($pager);
 
         $output = $this->controller->allAction();
 
@@ -56,6 +68,8 @@ class ProductControllerTest extends ProphecyTestCase
     public function shouldRetrieveAllProductsPagerFromGivenCategory()
     {
         $pageNum = 1;
+        $request = $this->prophesize('Symfony\Component\HttpFoundation\Request');
+        $this->http->getRequest()->willReturn($request);
         $this->http->getRequestParam('page', 1)->willReturn($pageNum);
 
         $category = new Category();
@@ -63,7 +77,10 @@ class ProductControllerTest extends ProphecyTestCase
         $this->categoryRepo->find(123)->willReturn($category);
 
         $pager = $this->prophesize('PagerfantaDoctrinePager');
-        $this->productRepo->getProductsFromCategory($category, 60, $pageNum)->willReturn($pager);
+        $this->searchBuilder->with(Argument::any())->willReturn($this->searchBuilder);
+        $this->searchBuilder->using(Argument::any())->willReturn($this->searchBuilder);
+        $this->searchBuilder->getFilters()->willReturn(array());
+        $this->searchBuilder->getResults(60, $pageNum)->willReturn($pager);
 
         $output = $this->controller->browseCategoryAction('foo_bar_baz', 123);
 

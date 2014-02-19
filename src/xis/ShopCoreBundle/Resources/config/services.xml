@@ -8,6 +8,7 @@
         <import resource="repositories.xml"/>
         <import resource="pager.xml"/>
         <import resource="cart.xml"/>
+        <import resource="search.xml"/>
     </imports>
 
 </container>

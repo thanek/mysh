@@ -21,4 +21,21 @@ class PriceFromFilter implements Filter
     {
         $filter->setPriceFrom($this->priceFrom);
     }
+
+
+    /**
+     * @return string
+     */
+    function getName()
+    {
+        return 'price from';
+    }
+
+    /**
+     * @return string
+     */
+    function getValue()
+    {
+        return $this->priceFrom;
+    }
 }

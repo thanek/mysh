@@ -21,4 +21,20 @@ class PriceToFilter implements Filter
     {
         $filter->setPriceTo($this->priceTo);
     }
+
+    /**
+     * @return string
+     */
+    function getName()
+    {
+        return 'price to';
+    }
+
+    /**
+     * @return string
+     */
+    function getValue()
+    {
+        return $this->priceTo;
+    }
 }

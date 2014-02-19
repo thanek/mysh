@@ -4,6 +4,13 @@
 
 {% block body %}
     <h1>{{ title }}</h1>
+    <div class="filters">
+        <ul>
+        {% for filter in filters %}
+            <li>{{ filter.name }}: {{ filter.value }}</li>
+        {% endfor %}
+        </ul>
+    </div>
     <ul>
         {% for product in pager.results %}
             <li class="single_product">

@@ -5,6 +5,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use xis\Shop\Repository\CategoryRepository;
 use xis\Shop\Repository\ProductRepository;
+use xis\Shop\Search\Builder\SearchBuilder;
+use xis\Shop\Search\Service\AllProductsSearch;
+use xis\Shop\Search\Service\InCategorySearch;
+use xis\ShopCoreBundle\Search\Parameter\Converter\RequestParametersConverter;
 
 /**
  * @Route(service="xis.shop.controller.product")
@@ -17,12 +21,17 @@ class ProductController
     private $productRepository;
     /** @var CategoryRepository */
     private $categoryRepository;
+    /** @var SearchBuilder */
+    private $searchBuilder;
 
-    function __construct(HttpFacade $http, ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    function __construct(
+        HttpFacade $http, ProductRepository $productRepository, CategoryRepository $categoryRepository,
+        SearchBuilder $searchBuilder)
     {
         $this->http = $http;
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->searchBuilder = $searchBuilder;
     }
 
     /**
@@ -32,9 +41,13 @@ class ProductController
     public function allAction()
     {
         $page = $this->getQueryParameter('page', 1);
-        $pager = $this->productRepository->getProducts(60, $page);
+        $search = $this->searchBuilder
+            ->with(new RequestParametersConverter($this->http->getRequest()))
+            ->using(new AllProductsSearch());
+        $pager = $search->getResults(60, $page);
+        $filters = $search->getFilters();
 
-        return array('pager' => $pager, 'title' => 'All products');
+        return array('pager' => $pager, 'filters' => $filters, 'title' => 'All products');
     }
 
     /**
@@ -50,8 +63,13 @@ class ProductController
             return $this->http->redirect('home');
         }
 
-        $pager = $this->productRepository->getProductsFromCategory($category, 60, $page);
-        return array('pager' => $pager, 'title' => $category->getName());
+        $pager = $this->searchBuilder
+            ->with(new RequestParametersConverter($this->http->getRequest()))
+            ->using(new InCategorySearch($category))
+            ->getResults(60, $page);
+        $filters = $this->searchBuilder->getFilters();
+
+        return array('pager' => $pager, 'filters' => $filters, 'title' => $category->getName());
     }
 
     /**

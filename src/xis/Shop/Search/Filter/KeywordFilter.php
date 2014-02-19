@@ -21,4 +21,20 @@ class KeywordFilter implements Filter
     {
         $filter->setKeyword($this->keyword);
     }
+
+    /**
+     * @return string
+     */
+    function getName()
+    {
+        return 'keyword';
+    }
+
+    /**
+     * @return string
+     */
+    function getValue()
+    {
+        return $this->keyword;
+    }
 }
