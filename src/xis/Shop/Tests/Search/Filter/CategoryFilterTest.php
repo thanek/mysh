@@ -23,4 +23,30 @@ class CategoryFilterTest extends ProphecyTestCase
 
         $filter->updateFilterSet($filterSet->reveal());
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnItsName()
+    {
+        $filter = new CategoryFilter(new Category());
+
+        $name = $filter->getName();
+
+        $this->assertSame('category', $name);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnItsValue()
+    {
+        $category = new Category();
+        $category->setName('foo');
+        $filter = new CategoryFilter($category);
+
+        $actualValue = $filter->getValue();
+
+        $this->assertSame('foo', $actualValue);
+    }
 } 

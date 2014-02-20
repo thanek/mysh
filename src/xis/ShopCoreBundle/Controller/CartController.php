@@ -29,7 +29,7 @@ class CartController
         $this->cartService->addItem($id);
 
         $this->http->addFlashMessage('notice', 'Item added to cart');
-        return $this->http->redirectToReferer();
+        return $this->http->redirectToRefererOr('homepage');
     }
 
     /**
@@ -49,6 +49,6 @@ class CartController
         $this->cartService->disposeCart();
 
         $this->http->addFlashMessage('notice', 'Cart has been disposed');
-        return $this->http->redirectToReferer();
+        return $this->http->redirectToRefererOr('homepage');
     }
 }

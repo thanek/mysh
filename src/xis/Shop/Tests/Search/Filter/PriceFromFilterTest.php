@@ -21,4 +21,28 @@ class PriceFromFilterTest extends ProphecyTestCase
 
         $filter->updateFilterSet($filterSet->reveal());
     }
-} 
+
+    /**
+     * @test
+     */
+    public function shouldReturnItsName()
+    {
+        $filter = new PriceFromFilter('123.20');
+
+        $name = $filter->getName();
+
+        $this->assertSame('price from', $name);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnItsValue()
+    {
+        $filter = new PriceFromFilter(123.40);
+
+        $actualValue = $filter->getValue();
+
+        $this->assertSame(123.40, $actualValue);
+    }
+}

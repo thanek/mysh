@@ -60,9 +60,25 @@ class HttpFacade
     }
 
     /**
+     * @param string $route
+     * @param array $parameters
+     * @param int $status
+     * @return RedirectResponse
+     */
+    public function redirectToRefererOr($route, $parameters = array(), $status = 302)
+    {
+        $url = $this->getReferer();
+        if (!$url) {
+            $url = $this->url($route, $parameters);
+        }
+        return new RedirectResponse($url, $status);
+    }
+
+    /**
      * @return string
      */
-    public function getReferer()
+    public
+    function getReferer()
     {
         return $this->getRequest()->headers->get('referer');
     }
@@ -72,7 +88,8 @@ class HttpFacade
      * @param int $status
      * @return RedirectResponse
      */
-    public function redirectToUrl($url, $status = 302)
+    public
+    function redirectToUrl($url, $status = 302)
     {
         return new RedirectResponse($url, $status);
     }
@@ -83,7 +100,8 @@ class HttpFacade
      * @param bool $referenceType
      * @return string
      */
-    public function url($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    public
+    function url($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
     {
         return $this->getRouter()->generate($route, $parameters, $referenceType);
     }
@@ -91,7 +109,8 @@ class HttpFacade
     /**
      * @return Request
      */
-    public function getRequest()
+    public
+    function getRequest()
     {
         return $this->container->get('request');
     }
@@ -99,7 +118,8 @@ class HttpFacade
     /**
      * @return Session
      */
-    protected function getSession()
+    protected
+    function getSession()
     {
         return $this->container->get('session');
     }
@@ -107,7 +127,8 @@ class HttpFacade
     /**
      * @return Router
      */
-    protected function getRouter()
+    protected
+    function getRouter()
     {
         return $this->container->get('router');
     }

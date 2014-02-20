@@ -21,4 +21,28 @@ class KeywordFilterTest extends ProphecyTestCase
 
         $filter->updateFilterSet($filterSet->reveal());
     }
-} 
+
+    /**
+     * @test
+     */
+    public function shouldReturnItsName()
+    {
+        $filter = new KeywordFilter('foo');
+
+        $name = $filter->getName();
+
+        $this->assertSame('keyword', $name);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnItsValue()
+    {
+        $filter = new KeywordFilter('foo');
+
+        $actualValue = $filter->getValue();
+
+        $this->assertSame('foo', $actualValue);
+    }
+}

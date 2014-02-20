@@ -78,6 +78,11 @@ class SearchBuilderTest extends ProphecyTestCase
         $this->searchBuilder->getResults(100, 1);
     }
 
+    public function shouldReturnCurrentFilters()
+    {
+        
+    }
+
     /**
      * @return ObjectProphecy | ParametersConverter
      */
