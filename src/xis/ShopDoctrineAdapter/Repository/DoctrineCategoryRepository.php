@@ -25,6 +25,7 @@ class DoctrineCategoryRepository implements CategoryRepository
     {
         $queryBuilder = $this->createQueryBuilder()
             ->where('c.level=1')
+            ->andWhere('c.status=1')
             ->addOrderBy('c.sortOrder', 'asc');
 
         return $queryBuilder->getQuery()->getResult();

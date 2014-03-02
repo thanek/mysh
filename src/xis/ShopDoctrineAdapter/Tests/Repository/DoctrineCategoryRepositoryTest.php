@@ -39,6 +39,7 @@ class DoctrineCategoryRepositoryTest extends ProphecyTestCase
         $queryBuilder->select('c')->willReturn($queryBuilder);
         $queryBuilder->from('xisShop:Category', 'c')->willReturn($queryBuilder);
         $queryBuilder->where('c.level=1')->willReturn($queryBuilder);
+        $queryBuilder->andWhere('c.status=1')->willReturn($queryBuilder);
         $queryBuilder->addOrderBy('c.sortOrder', 'asc')->willReturn($queryBuilder);
         $queryBuilder->getQuery()->willReturn($query);
         $this->entityManager->createQueryBuilder()->willReturn($queryBuilder);

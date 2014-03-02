@@ -38,7 +38,7 @@ class ProductController
     }
 
     /**
-     * @Route("/{slug},c,{id}",name="category")
+     * @Route("/{slug},c,{id}", name="category", requirements={"slug"="[^/,]*"})
      * @Template("xisShopCoreBundle:Product:listing.html.twig")
      */
     public function browseCategoryAction($slug, $id)
